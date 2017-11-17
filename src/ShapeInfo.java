@@ -25,5 +25,4 @@ public class ShapeInfo extends Info {
 	public void setHeight(int height){
 		this.height = height;
 	}
-	
 }
