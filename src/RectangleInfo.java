@@ -3,3 +3,4 @@ class RectangleInfo {
         super(x, y, w, h);
     }
 }
+
