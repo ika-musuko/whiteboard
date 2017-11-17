@@ -1,26 +1,29 @@
-class ShapeInfo {
-    private int x;
-    private int y;
 
-    public ShapeInfo(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
+public class ShapeInfo extends Info {
 
-    public int getX() {
-        return this.x;
-    }
-
-    public int getY() {
-        return this.y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
+	private int width;
+	private int height;
+	
+	public ShapeInfo(int x, int y, int width, int height){
+		super(x, y);
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getWidth(){
+		return width;
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+	
+	public void setWidth(int w){
+		this.width = w;
+	}
+	
+	public void setHeight(int height){
+		this.height = height;
+	}
+	
 }
