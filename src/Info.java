@@ -1,4 +1,4 @@
-class ShapeInfo {
+class Info {
     private int x;
     private int y;
 
@@ -22,5 +22,4 @@ class ShapeInfo {
     public int setY(int y) {
         this.y = y;
     }
-
 }
