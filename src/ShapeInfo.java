@@ -18,8 +18,8 @@ public class ShapeInfo extends Info {
 		return height;
 	}
 	
-	public void setWidth(int w){
-		this.width = w;
+	public void setWidth(int width){
+		this.width = width;
 	}
 	
 	public void setHeight(int height){
