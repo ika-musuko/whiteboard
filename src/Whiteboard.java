@@ -29,18 +29,17 @@ public class Whiteboard extends JFrame {
         this.statusTable    = new StatusTable();
 
         // place each subwindow onto the main GUI
-		
-        JPanel tools = new JPanel();
-        tools.setLayout(new BoxLayout(tools, BoxLayout.Y_AXIS));
-        tools.add(this.controlPanel);
-        tools.add(this.statusTable);
-        
+        JPanel toolsLayout = new JPanel();
+        toolsLayout.setLayout(new BoxLayout(toolsLayout, BoxLayout.Y_AXIS));
+        toolsLayout.add(this.controlPanel);
+        toolsLayout.add(this.statusTable);
+        toolsLayout.setMaximumSize(new Dimension(500, Integer.MAX_VALUE));
         
         JPanel canvasLayout = new JPanel();
         canvasLayout.setLayout(new BorderLayout());
-        canvasLayout.add(this.canvas , BorderLayout.CENTER);
+        canvasLayout.add(this.canvas, BorderLayout.CENTER);
         
-        this.add(tools);
+        this.add(toolsLayout);
         this.add(canvasLayout);
      
 		 
