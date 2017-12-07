@@ -19,6 +19,7 @@ public class StatusTable extends JPanel {
 	    	};
 	    
 	    JTable table = new JTable(data, column);
+	    table.setEnabled(false);
 	    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	    JScrollPane sp = new JScrollPane(table);
 	    sp.setPreferredSize(new Dimension(500, 100));
