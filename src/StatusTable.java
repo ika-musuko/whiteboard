@@ -28,9 +28,4 @@ public class StatusTable extends JPanel {
 	    this.setVisible(true);
     
     }
-	
-	public boolean isCellEditable()
-	{
-		return false;
-	}
 }
