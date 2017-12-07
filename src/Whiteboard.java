@@ -1,7 +1,10 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +21,7 @@ public class Whiteboard extends JFrame {
 	public Whiteboard(){
         // initialize main window
 		super("whiteboard");
-		this.setLayout(new BorderLayout()); 
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS)); 
 		
         // initialize each subwindow
         this.canvas         = new Canvas();
@@ -26,12 +29,20 @@ public class Whiteboard extends JFrame {
         this.statusTable    = new StatusTable();
 
         // place each subwindow onto the main GUI
-		this.add(this.canvas, BorderLayout.EAST);
+		
         JPanel tools = new JPanel();
-        tools.setLayout(new BorderLayout());
-        tools.add(this.controlPanel, BorderLayout.NORTH);
-        tools.add(this.statusTable, BorderLayout.SOUTH);
-        this.add(tools, BorderLayout.WEST);
+        tools.setLayout(new BoxLayout(tools, BoxLayout.Y_AXIS));
+        tools.add(this.controlPanel);
+        tools.add(this.statusTable);
+        
+        
+        JPanel canvasLayout = new JPanel();
+        canvasLayout.setLayout(new BorderLayout());
+        canvasLayout.add(this.canvas , BorderLayout.CENTER);
+        
+        this.add(tools);
+        this.add(canvasLayout);
+     
 		 
         // actually show the window
         this.pack();
