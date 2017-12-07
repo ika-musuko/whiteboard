@@ -69,7 +69,7 @@ public class Whiteboard extends JFrame {
     	this.controlPanel = new JPanel();
     	
     	//sets the layout of all the panes to be aligned vertically
-		controlPanel.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.Y_AXIS));
 		controlPanel.setVisible(true);
 		
 
