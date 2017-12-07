@@ -1,27 +1,61 @@
+import java.awt.Color;
 
 class Info {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
+    private double w;
+    private double h;
+    private Color color;
 
-    public Info(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Info(double x, double y, double w, double h){
+        this(Color.GRAY, x, y, w, h);
     }
 
-    public int getX() {
+    public Info(Color color, double x, double y, double w, double h) {
+        this.x = x;
+        this.y = y;
+        this.w = w;
+        this.h = h;
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public double getX() {
         return this.x;
     }
 
-    public int getY() {
+    public double getY() {
         return this.y;
     }
 
-    public void setX(int x) {
+    public double getWidth() {
+        return this.w;
+    }
+
+    public double getHeight() {
+        return this.h;
+    }
+
+    public void setX(double x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
+    public void setWidth(double w) {
+        this.w = w;
+    }
+
+    public void setHeight(double h) {
+        this.h = h; 
+    }
 }

@@ -1,23 +1,23 @@
+import java.awt.Color;
+
 class TextInfo extends Info {
-    private int size;
     private String face;
 
-    public TextInfo(int x, int y, int size, String face) {
-        super(x, y);
-        this.size = size;
+    public TextInfo(String face, Color color, double x, double y, double w, double h) {
+        super(color, x, y, w, h);
         this.face = face;
     }
 
-    public int getSize() {
-        return this.size;
+    public TextInfo(double x, double y, double w, double h){
+        this("Arial", Color.GRAY, x, y, w, h);
+    }
+
+    public TextInfo(String face, double x, double y, double w, double h) {
+        this(face, Color.GRAY,  x, y, w, h);
     }
 
     public String getFace() {
         return this.face;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
     }
 
     public void setFace(String face) {
