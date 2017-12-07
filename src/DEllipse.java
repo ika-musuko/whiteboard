@@ -3,6 +3,11 @@ import java.awt.event.*;
 import java.awt.geom.Ellipse2D;
 
 public class DEllipse extends DShape {
+	
+	public DEllipse(){
+		super();
+	}
+	
     public DEllipse(Color color, double x, double y, double w, double h) {
         super(color, x, y, w, h);
         this.shape = new Ellipse2D.Double();

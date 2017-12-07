@@ -6,10 +6,10 @@ public abstract class DShape {
     protected Info info;
 
     protected DShape() {
-
+    	this(Color.GRAY, 10.0, 10.0, 20.0, 20.0);
     }
 
-    protected DShape(Color color, double x, double y, double w, double h){
+	protected DShape(Color color, double x, double y, double w, double h){
         this.info = new Info(color, x, y, w, h);
     }
 

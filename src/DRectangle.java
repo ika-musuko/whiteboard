@@ -3,6 +3,10 @@ import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 public class DRectangle extends DShape {
+	
+	public DRectangle(){
+		super();
+	}
 
 	public DRectangle(Color color, double x, double y, double w, double h) {
         super(color, x, y, w, h);
