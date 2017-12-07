@@ -1,26 +1,32 @@
+import java.awt.Color;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ControlPanel extends JPanel {
-   public ControlPanel() {
+  
+	private static final long serialVersionUID = 1L;
+
+public ControlPanel() {
 		//Add buttons section
-		/*JPanel addButtons = new JPanel();
-		addButtons.setBounds(0, 0, 500, 30);
-		addButtons.setBackground(Color.BLACK);
-		addButtons.setLayout(new FlowLayout());
-		addButtons.setVisible(true);
+		this.setLayout(new FlowLayout());
+		this.setVisible(true);
 		
-		JLabel preButtonAddText = new JLabel("Add");
+		JLabel preButtonAddText = new JLabel("Add Shapes:");
 		JButton addRect = new JButton("Rect");
 		
 		JButton addOval = new JButton("Oval");
 		JButton addLine = new JButton("Line");
+		addLine.setEnabled(false);
 		JButton addText = new JButton("Text");
+		addText.setEnabled(false);
 		
-		addButtons.add(preButtonAddText);
-		addButtons.add(addRect);
-		addButtons.add(addOval);
-		addButtons.add(addLine);
-		addButtons.add(addText);
-		whiteboard.add(addButtons);*/
+		this.add(preButtonAddText);
+		this.add(addRect);
+		this.add(addOval);
+		this.add(addLine);
+		this.add(addText);
    }
 }
