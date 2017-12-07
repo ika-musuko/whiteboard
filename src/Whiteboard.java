@@ -45,12 +45,17 @@ public class Whiteboard extends JFrame {
 		 
         // actually show the window
         this.pack();
-        this.setBounds(0, 0, 600, 400);
+        this.setBounds(0, 0, 1000, 400);
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+    public void addShape(DShape ds) {
+        this.canvas.addShape(ds);
+    }
 	
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
+        whiteboard.addShape(new DEllipse(50, 50, 100, 90));
 	}
 }
