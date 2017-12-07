@@ -31,7 +31,7 @@ public ControlPanel() {
 		JButton addLine = new JButton("Line");
 		addLine.setEnabled(false);
 		JButton addText = new JButton("Text");
-		addText.setEnabled(false);
+		addText.setEnabled(false);											//10 10 20 20 
 		
 		addButtons.add(preButtonAddText);
 		addButtons.add(addRect);
@@ -44,6 +44,7 @@ public ControlPanel() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//*******Add rectangle of random size and location******
+				
 			}
 		});
 		addOval.addActionListener(new ActionListener(){
