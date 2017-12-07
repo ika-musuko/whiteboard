@@ -32,6 +32,7 @@ public class Whiteboard extends JFrame {
 		 
         // actually show the window
         this.pack();
+        this.setBounds(0, 0, 600, 400);
 		this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
