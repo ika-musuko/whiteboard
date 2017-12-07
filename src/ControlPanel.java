@@ -1,5 +1,7 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +15,8 @@ public class ControlPanel extends JPanel {
 
 public ControlPanel() {
 		
+	
+		//sets the layout of all the panes to be aligned vertically
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setVisible(true);
 		
@@ -35,6 +39,32 @@ public ControlPanel() {
 		addButtons.add(addLine);
 		addButtons.add(addText);
 		
+		//***********listeners*************
+		addRect.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//*******Add rectangle of random size and location******
+			}
+		});
+		addOval.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//********add ellipse of random size and location*******
+			}
+		});
+		addLine.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//********add line of default size and location*******
+			}
+		});
+		addText.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//********add text of default size and location*******
+			}
+		});
+		
 		this.add(addButtons);
 		//******************************
 		
@@ -45,10 +75,18 @@ public ControlPanel() {
 		
 		JLabel preEditText = new JLabel("Edit Text:");
 		JTextField textEditor = new JTextField();
-		textEditor.setColumns(30);
+		textEditor.setColumns(30);				//***********TO ADD: font dropdown selection
 		
 		editTextPanel.add(preEditText);
 		editTextPanel.add(textEditor);
+		
+		//*************listeners************
+		textEditor.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//update the text on the selected canvas shape every time the text box is changed
+			}
+		});
 		
 		this.add(editTextPanel);
 		//******************************
@@ -63,6 +101,14 @@ public ControlPanel() {
 		
 		shapeColorPanel.add(shapeColorText);
 		shapeColorPanel.add(setColorButton);
+		
+		//*******listeners**********
+		setColorButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//bring up a dialog box which allows the user to select a color for the selected object
+			}
+		});
 		
 		this.add(shapeColorPanel);
 		//******************************
@@ -82,6 +128,26 @@ public ControlPanel() {
 		editShapePanel.add(sendToBack);
 		editShapePanel.add(removeButton);
 		
+		//*************listeners***************
+		sendToFront.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//update the text on the selected canvas shape every time the text box is changed
+			}
+		});
+		sendToBack.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//update the text on the selected canvas shape every time the text box is changed
+			}
+		});
+		removeButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//update the text on the selected canvas shape every time the text box is changed
+			}
+		});
+		
 		this.add(editShapePanel);
 		//******************************
 		
@@ -100,6 +166,28 @@ public ControlPanel() {
 		fileIOPanel.add(loadButton);
 		fileIOPanel.add(saveToPngButton);
 		
+		//**********listeners*************
+		saveButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//save the locations and specifications of the shape infos into a file, xml? txt? something else?
+			}
+		});
+		loadButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//open a dialog box allowing the user to select the file they want to load, load the info from the file
+				//and recreate the shapes in their specified locations
+			}
+		});
+		saveToPngButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//open a dialog box allowing the user to choose the name and location of the file they want to save
+				//then save the whiteboard to a png file
+			}
+		});
+		
 		this.add(fileIOPanel);
 		//******************************
 		
@@ -115,6 +203,20 @@ public ControlPanel() {
 		networkPanel.add(networkingLabel);
 		networkPanel.add(startServerButton);
 		networkPanel.add(startClientButton);
+		
+		//**********listeners*************
+		startServerButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//start a server to display the contents of the whiteboard to a client over the network
+			}
+		});
+		startClientButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//start a client to see the contents of a whiteboard that is in server mode
+			}
+		});
 		
 		this.add(networkPanel);
 		//******************************
