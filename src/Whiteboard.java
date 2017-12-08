@@ -1,10 +1,18 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
+import javax.swing.JFileChooser;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -235,6 +243,12 @@ public class Whiteboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to select the file they want to load, load the info from the file
 				//and recreate the shapes in their specified locations
+				try {
+					fileLoader();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		saveToPngButton.addActionListener(new ActionListener(){
@@ -299,5 +313,66 @@ public class Whiteboard extends JFrame {
 	    //Add a comment to this line
 	    statusTable.setVisible(true);
     }
+    
+    public void fileLoader() throws FileNotFoundException
+    {
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	int returnVal = chooser.showOpenDialog(null);
+    	if(returnVal == JFileChooser.APPROVE_OPTION)
+    	{
+    		File file = chooser.getSelectedFile();
+    		Scanner scanner = new Scanner(file); //.useDelimiter(" ");
+    		
+    		List<DShape> shapesTextFile = new ArrayList<DShape>();
+    		
+    		while(scanner.hasNextLine())
+    		{
+
+    			// default parameters for Info
+    			String shapeType = scanner.next();
+    			int x, y, height, width, r, g, b;
+    			Color color = null;
+    			
+    			
+    			if(shapeType == "Text")
+    			{
+    				
+    				//TextInfo info = new TextInfo(color, x, y, height, width);
+    			}
+    			else // Rectangle , Ellipse, Line
+    			{
+
+    				r = scanner.nextInt();
+    				g = scanner.nextInt();
+    				b = scanner.nextInt();
+    				color = new Color(r,g,b);
+    				x = scanner.nextInt();
+    				y = scanner.nextInt();
+    				height = scanner.nextInt();
+    				width = scanner.nextInt();	
+    				
+    				System.out.println(shapeType + " " + color.getRed() + color.getGreen() + color.getBlue() +
+    					" " + x + " " + y + " " + height + " " + width);
+    
+    				Info info = new Info(color, x, y, height, width);
+    			}
+    			
+    			
+    			//DShape shape = new DShape(info);
+    		}
+    		
+    		
+    		Canvas crud = new Canvas(shapesTextFile);
+    		
+    		scanner.close();
+    	}
+    	
+    	
+    	
+    	
+    }
 	
+    
+    
 }
