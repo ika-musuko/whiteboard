@@ -9,11 +9,12 @@ public class Canvas extends JPanel implements InfoListener {
 	private static final long serialVersionUID = 1L;
 	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
     private List<DShape> shapeList;
+    private List<InfoListener> selectedListeners;
     private DShape selected;
 
     // InfoListener implement
     public void infoChanged(Info info){
-        repaint();
+        this.refresh();
     }
 
 	public Canvas(){
@@ -22,13 +23,9 @@ public class Canvas extends JPanel implements InfoListener {
         this.addMouseListener(cl);
 	}
 
-    public void refresh() {
-        revalidate();
-        repaint();
-    }
-
     public Canvas(List<DShape> shapeList){
         this.shapeList = shapeList;
+        this.selectedListeners = new ArrayList<>();
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
@@ -39,13 +36,18 @@ public class Canvas extends JPanel implements InfoListener {
     public void addShape(DShape ds) {
         ds.getInfo().addListener(new InfoListener() {
             public void infoChanged(Info info){
-                repaint();
+                refresh();
             }
         });
 
         this.shapeList.add(ds);
         this.selected = ds;
         this.refresh();
+    }
+
+    public void refresh() {
+        revalidate();
+        repaint();
     }
 
     public void resetArray()

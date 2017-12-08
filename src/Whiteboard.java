@@ -24,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.*;
 
 public class Whiteboard extends JFrame {
 
@@ -151,14 +152,18 @@ public class Whiteboard extends JFrame {
 		editTextPanel.add(textEditor);
 		
 		//*************listeners************
-		textEditor.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//update the text on the selected canvas shape every time the text box is changed
-                System.out.println(textEditor.getText());
+        // update the text based on the selected shape's model
+		textEditor.getDocument().addDocumentListener(new DocumentListener() {
+            public void insertUpdate(DocumentEvent de){
                 canvas.updateText(textEditor.getText());
-			}
-		});
+            }
+            public void removeUpdate(DocumentEvent de){
+                canvas.updateText(textEditor.getText());
+            }
+            public void changedUpdate(DocumentEvent de){
+            
+            }
+        });
 		
 		controlPanel.add(editTextPanel);
 		//******************************
