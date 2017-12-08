@@ -43,8 +43,20 @@ public class Whiteboard extends JFrame {
 	private static final long serialVersionUID = 1L;
     
     private Canvas canvas;
-    private JPanel controlPanel;
-    private JPanel statusTable;
+    private ControlPanel controlPanel;
+    private StatusTable statusTable;
+
+    public Canvas getCanvas(){
+        return this.canvas;
+    }
+
+    public ControlPanel getControlPanel() {
+        return this.controlPanel;
+    }
+
+    public StatusTable getStatusTable() {
+        return this.statusTable;
+    }
 
 	public Whiteboard(){
 		
@@ -53,9 +65,9 @@ public class Whiteboard extends JFrame {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS)); 
 		
         // initialize each subwindow
-        this.canvas         = new Canvas();
-        this.initControlPanel();
-        this.initStatusTable();
+        this.canvas         = new Canvas(this);
+        this.controlPanel   = new ControlPanel(this);
+        this.statusTable    = new StatusTable(this);
 
         // place each subwindow onto the main GUI
         JPanel toolsLayout = new JPanel();
@@ -157,11 +169,17 @@ public class Whiteboard extends JFrame {
 		//*************listeners************
         // update the text based on the selected shape's model
 		textEditor.getDocument().addDocumentListener(new DocumentListener() {
-            public void insertUpdate(DocumentEvent de){
-                canvas.updateText(textEditor.getText());
+            public void updater(){
+                if(canvas.getSelected().getInfo() instanceof TextInfo)
+                    ((TextInfo)canvas.getSelected()).getInfo().setText(text.getText());
+            
             }
+            public void insertUpdate(DocumentEvent de){
+                updater();
+            }
+
             public void removeUpdate(DocumentEvent de){
-                canvas.updateText(textEditor.getText());
+                updater();
             }
             public void changedUpdate(DocumentEvent de){
             
