@@ -325,7 +325,6 @@ public class Whiteboard extends JFrame {
     
     public void fileLoader() throws FileNotFoundException
     {
-    	//this.canvas = new Canvas();
     	this.canvas.resetArray();
     	JFileChooser chooser = new JFileChooser();
     	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -335,8 +334,6 @@ public class Whiteboard extends JFrame {
     		File file = chooser.getSelectedFile();
     		Scanner scanner = new Scanner(file); 
     		
-    		List<DShape> shapeList = new ArrayList<DShape>();
-    		
     		while(scanner.hasNextLine())
     		{
     			DShape shape = null;
@@ -344,19 +341,12 @@ public class Whiteboard extends JFrame {
     			// default parameters for Info
     			String shapeType = scanner.next();
     			
-    			// all parameters will be saved into info object at the end
-    			//Info info; 
-    			
 				String colorHexVal = scanner.next();
 				Color color = Color.decode(colorHexVal);
 				int x = scanner.nextInt();
 				int y = scanner.nextInt();
 				int width = scanner.nextInt();
 				int height = scanner.nextInt();	
-				
-				System.out.println(shapeType + " " + color.getRed() + color.getGreen() + color.getBlue() +
-					" " + x + " " + y + " " + width + " " + height);
-
     			
     			if(shapeType.equals("Text"))
     			{
@@ -375,16 +365,11 @@ public class Whiteboard extends JFrame {
     				
     				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
     				shape = new DText(infoT);
-    				//shapeList.add(shape);
-    				
-    				System.out.println(text + " " + fontName);
     			}
     			else if(shapeType.equals("Line"))
     			{
     				LineInfo infoL = new LineInfo(color, x, y, width, height);
     				shape = new DLine(infoL);
-    				//addShape(shape);
-    				//shapeList.add(shape);
     			}
     			else
     			{
@@ -393,25 +378,17 @@ public class Whiteboard extends JFrame {
 	    			if(shapeType.equals("Rectangle"))
 	    			{
 	    				shape = new DRectangle(info);
-	    				//addShape(shape);
-	    				//shapeList.add(shape);
 	    			}
 	    			else if(shapeType.equals("Ellipse"))
 	    			{
 	    				shape = new DEllipse(info);
-	    				//addShape(shape);
-	    				//shapeList.add(shape);
 	    			}
     			}
 
     			
     			addShape(shape);
-    			//shapeList.add(shape);
     		}
     		
-			
-			
-    		//this.canvas = new Canvas(shapeList);
     		scanner.close();
     	}
     
