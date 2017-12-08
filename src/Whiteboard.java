@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 public class Whiteboard extends JFrame {
@@ -36,7 +38,7 @@ public class Whiteboard extends JFrame {
         // initialize each subwindow
         this.canvas         = new Canvas();
         this.initControlPanel();
-        this.statusTable    = new StatusTable();
+        this.initStatusTable();
 
         // place each subwindow onto the main GUI
         JPanel toolsLayout = new JPanel();
@@ -276,5 +278,25 @@ public class Whiteboard extends JFrame {
 		//******************************
     }
 	
+    public void initStatusTable(){
+    	
+    	statusTable = new JPanel();
+    	
+		statusTable.setLayout(new BorderLayout());
+	    String[] column = {"X", "Y", "WIDTH", "HEIGHT"};
+	    Object[][] data = {
+	    		{new Integer(0), new Integer(0), new Integer(10), new Integer(10)}
+	    	};
+	    
+	    JTable table = new JTable(data, column);
+	    table.setEnabled(false);
+	    table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+	    JScrollPane sp = new JScrollPane(table);
+	    sp.setPreferredSize(new Dimension(500, 100));
+
+	    statusTable.add(sp);
+	    //Add a comment to this line
+	    statusTable.setVisible(true);
+    }
 	
 }
