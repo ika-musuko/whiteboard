@@ -32,6 +32,7 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
         for (DShape ds : this.shapeList) {
+            //System.out.println("X COORD OF SHAPE: "+ds.getShape().getBounds().getX());
             g2.fill(ds.getShape());
         }
         g2.dispose();
