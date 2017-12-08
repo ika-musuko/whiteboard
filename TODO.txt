@@ -1,0 +1,20 @@
+canvas and whiteboard     done
+model (Info Classes)      done
+DEllipse(oval)            done
+DRectangle                done
+Selection                 done
+Listeners                 wip
+SetColor                  done
+Moving                    
+Knob Drawing              done
+Knob Resizing             
+Delete Shape              
+Move Front/Back
+DLine                     done
+DText                     done
+Text Inspector            can edit text data, can't receive data
+Table
+File Saving               done
+File Opening              done
+Save as PNG               done
+Networking
