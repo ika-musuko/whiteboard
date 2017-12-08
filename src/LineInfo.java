@@ -1,5 +1,9 @@
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.awt.Color;
+import java.awt.Point;
 
 public class LineInfo extends Info {
     
@@ -44,5 +48,23 @@ public class LineInfo extends Info {
     	Rectangle b = this.getBounds();
         //System.out.println(b);
         return b.contains(x, y);
+    }
+    
+    @Override
+    public List<Point> getKnobs() {
+        Rectangle rect = this.getBounds();
+        Point p = rect.getLocation();
+        int px = (int)p.getX();
+        int py = (int)p.getY();
+        int width = (int)rect.getWidth();
+        int height = (int)rect.getHeight();
+        
+        return new ArrayList<Point>(Arrays.asList(
+                new Point(px       , py       )
+               ,new Point(px+width, py       )
+               ,new Point(px       , py+height)
+               ,new Point(px+width, py+height)
+               ));
+        
     }
 }
