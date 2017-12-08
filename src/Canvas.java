@@ -22,12 +22,17 @@ public class Canvas extends JPanel implements InfoListener {
         this.addMouseListener(cl);
 	}
 
+    public void refresh() {
+        revalidate();
+        repaint();
+    }
+
     public Canvas(List<DShape> shapeList){
         this.shapeList = shapeList;
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
-        this.repaint();
+        this.refresh();
         this.selected = Canvas.NOSELECTION;
     }
 
@@ -40,12 +45,13 @@ public class Canvas extends JPanel implements InfoListener {
 
         this.shapeList.add(ds);
         this.selected = ds;
-        this.repaint();
+        this.refresh();
     }
 
     public void resetArray()
     {
     	shapeList = new ArrayList<DShape>();
+        this.refresh();
     }
     
     @Override
@@ -69,6 +75,7 @@ public class Canvas extends JPanel implements InfoListener {
             ((TextInfo)this.selected.getInfo()).setText(text);
             System.out.println(((TextInfo)this.selected.getInfo()).getText());
         }
+        this.refresh();
     }
 
     private class ClickListener implements MouseListener{
@@ -85,6 +92,7 @@ public class Canvas extends JPanel implements InfoListener {
                 }
             }
             System.out.println("SELECTED SHAPE: "+selected);
+            refresh();
 		}
 
 		@Override
