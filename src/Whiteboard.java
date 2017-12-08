@@ -99,13 +99,14 @@ public class Whiteboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//*******Add rectangle of random size and location******
-				addShape(new DRectangle());
+				addShape(new DRectangle(Color.GRAY, 100, 100, 50, 30));
 			}
 		});
 		addOval.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add ellipse of random size and location*******
+                addShape(new DEllipse(Color.GRAY, 40, 40, 40, 50));
 			}
 		});
 		addLine.addActionListener(new ActionListener(){
