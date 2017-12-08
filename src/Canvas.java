@@ -54,10 +54,12 @@ public class Canvas extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			Iterator<DShape> iterator = shapeList.iterator();
 			boolean found = false;
-			while(iterator.hasNext()){
+			while(iterator.hasNext() && !found){
 				DShape temp = iterator.next();
 				if(temp.contains(e.getX(), e.getY())){
+					selected.revertListeners();
 					selected = temp;
+					selected.addListeners();
 					System.out.println(selected.getShape() + " is selected!");
 					found = true;
 				}
