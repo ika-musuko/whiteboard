@@ -26,7 +26,6 @@ public class Canvas extends JPanel implements InfoListener {
         this.shapeList = shapeList;
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
-
 		this.setVisible(true);
         this.repaint();
         this.selected = Canvas.NOSELECTION;
@@ -53,7 +52,6 @@ public class Canvas extends JPanel implements InfoListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
-    	System.out.println(shapeList.size());
         for (DShape ds : this.shapeList) {
             ds.draw(g2);
             if(ds == this.selected)
