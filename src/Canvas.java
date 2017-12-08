@@ -37,6 +37,8 @@ public class Canvas extends JPanel {
         Graphics2D g2 = (Graphics2D) g.create();
         for (DShape ds : this.shapeList) {
             ds.draw(g2);
+            if(ds == this.selected)
+                ds.drawKnobs(g2);
         }
         g2.dispose();
     }
@@ -49,15 +51,13 @@ public class Canvas extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
+            selected = Canvas.NOSELECTION;
             for(DShape ds : shapeList){
                 if(ds.contains(e.getX(), e.getY())){
-			        selected.deselect();
                     selected = ds;
-                    ds.select();
-                    break;
+                    System.out.println(selected);
                 }
             }
-            selected = Canvas.NOSELECTION;
 		}
 
 		@Override

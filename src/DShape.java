@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public abstract class DShape {
+public abstract class DShape implement InfoListener{
     protected Info info; 
     protected abstract void draw(Graphics g); // override this method to decide how to draw
 
@@ -13,15 +13,10 @@ public abstract class DShape {
         this.setInfo(info);
     }
 
-    public void select() {
-        this.info.select();
+    public infoChanged(Info info){
+        this.setInfo(info);
     }
-
-    public void deselect() {
-        this.info.deselect();
-    }
-
-
+    
     public Info getInfo() {
         return this.info;
     }
@@ -34,11 +29,4 @@ public abstract class DShape {
     	return info.contains(x, y);
     }
 
-	public void revertListeners() {
-		info.revertListeners();
-	}
-
-	public void addListeners() {
-		info.addListeners();
-	}
 }
