@@ -129,7 +129,8 @@ public class Canvas extends JPanel implements InfoListener {
                 }
             }
             System.out.println("SELECTED SHAPE: "+selected);
-            refresh();
+            //repaint();
+            //selected.drawKnobs(g);
 		}
 
 		@Override
