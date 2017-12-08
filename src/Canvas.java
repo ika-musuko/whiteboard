@@ -28,6 +28,7 @@ public class Canvas extends JPanel {
 
     public void addShape(DShape ds) {
         this.shapeList.add(ds);
+        this.selected = ds;
         this.repaint();
     }
 
@@ -46,7 +47,14 @@ public class Canvas extends JPanel {
     public DShape getSelected(){
     	return selected;
     }
-    
+
+    public void updateText(String text) {
+        if(this.selected instanceof DText){
+            ((TextInfo)this.selected.getInfo()).setText(text);
+            System.out.println(((TextInfo)this.selected.getInfo()).getText());
+        }
+    }
+
     private class ClickListener implements MouseListener{
 
 		@Override

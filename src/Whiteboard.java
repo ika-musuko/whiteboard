@@ -19,13 +19,14 @@ public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
-        whiteboard.addShape(new DEllipse(new Info(50, 50, 100, 90)));
+        /*whiteboard.addShape(new DEllipse(new Info(50, 50, 100, 90)));
         whiteboard.addShape(new DRectangle(new Info(300, 60, 70, 90)));
         whiteboard.addShape(new DLine(new LineInfo(200, 300, 115, 51)));
         whiteboard.addShape(new DLine(new LineInfo(386, 51, 12, 384)));
         whiteboard.addShape(new DLine(new LineInfo(215, 151, 300, 400)));
         whiteboard.addShape(new DLine(new LineInfo(112, 484, 486, 151)));
         whiteboard.addShape(new DText(new TextInfo("YO WHITEBOARD BOYZ", 14, 24, 300, 40)));
+        */
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -147,6 +148,8 @@ public class Whiteboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//update the text on the selected canvas shape every time the text box is changed
+                System.out.println(textEditor.getText());
+                canvas.updateText(textEditor.getText());
 			}
 		});
 		
