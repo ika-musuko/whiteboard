@@ -27,5 +27,5 @@ public class DRectangle extends DShape {
 	protected void updateShape() {
 		((Rectangle2D.Double)this.shape).setFrame(this.info.getX(), this.info.getY(), this.info.getWidth(), this.info.getHeight());
 	}
-
+	
 }

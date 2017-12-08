@@ -22,4 +22,14 @@ public abstract class DShape {
     public Info getInfo() {
         return this.info;
     }
+    
+    public boolean contains(double x, double y){
+    	if(shape.contains(x, y)){
+    		return true;
+    	}
+    	else
+    		return false;
+    }
+    
+    
 }
