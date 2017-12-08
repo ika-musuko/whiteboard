@@ -1,10 +1,19 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
+import javax.swing.JFileChooser;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -19,14 +28,11 @@ public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
-        whiteboard.addShape(new DEllipse(new Info(50, 50, 100, 90)));
-        whiteboard.addShape(new DRectangle(new Info(300, 60, 70, 90)));
-        whiteboard.addShape(new DLine(new LineInfo(200, 300, 115, 51)));
-        whiteboard.addShape(new DLine(new LineInfo(386, 51, 12, 384)));
-        whiteboard.addShape(new DLine(new LineInfo(215, 151, 300, 400)));
-        whiteboard.addShape(new DLine(new LineInfo(112, 484, 486, 151)));
-        whiteboard.addShape(new DText(new TextInfo("YO WHITEBOARD BOYZ", 14, 24, 300, 40)));
-        
+		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 200));
+		DRectangle dr = new DRectangle(new Info(Color.RED, 50, 50, 100, 200));
+		List<DShape> list = new ArrayList<DShape>();
+		list.add(de);
+		list.add(dr);
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -243,6 +249,12 @@ public class Whiteboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to select the file they want to load, load the info from the file
 				//and recreate the shapes in their specified locations
+				try {
+					fileLoader();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		saveToPngButton.addActionListener(new ActionListener(){
@@ -307,5 +319,75 @@ public class Whiteboard extends JFrame {
 	    //Add a comment to this line
 	    statusTable.setVisible(true);
     }
-	
+    
+    public void fileLoader() throws FileNotFoundException
+    {
+    	this.canvas.resetArray();
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	int returnVal = chooser.showOpenDialog(null);
+    	if(returnVal == JFileChooser.APPROVE_OPTION)
+    	{
+    		File file = chooser.getSelectedFile();
+    		Scanner scanner = new Scanner(file); 
+    		
+    		while(scanner.hasNextLine())
+    		{
+    			DShape shape = null;
+
+    			// default parameters for Info
+    			String shapeType = scanner.next();
+    			
+				String colorHexVal = scanner.next();
+				Color color = Color.decode(colorHexVal);
+				int x = scanner.nextInt();
+				int y = scanner.nextInt();
+				int width = scanner.nextInt();
+				int height = scanner.nextInt();	
+    			
+    			if(shapeType.equals("Text"))
+    			{
+    				String text = "";
+    				char c = ' ';
+    				while(c != '"')
+    				{
+    					text += scanner.next();
+    					text += " ";
+    					c = text.charAt(text.length() - 2);
+    				}
+    				
+    				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
+    				
+    				String fontName = scanner.next();
+    				
+    				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
+    				shape = new DText(infoT);
+    			}
+    			else if(shapeType.equals("Line"))
+    			{
+    				LineInfo infoL = new LineInfo(color, x, y, width, height);
+    				shape = new DLine(infoL);
+    			}
+    			else
+    			{
+    				Info info = new Info(color, x, y, width, height);
+    				
+	    			if(shapeType.equals("Rectangle"))
+	    			{
+	    				shape = new DRectangle(info);
+	    			}
+	    			else if(shapeType.equals("Ellipse"))
+	    			{
+	    				shape = new DEllipse(info);
+	    			}
+    			}
+
+    			
+    			addShape(shape);
+    		}
+    		
+    		scanner.close();
+    	} 
+    }
+
 }
