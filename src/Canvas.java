@@ -49,15 +49,15 @@ public class Canvas extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-            for(DShape ds : this.shapeList){
+            for(DShape ds : shapeList){
                 if(ds.contains(e.getX(), e.getY())){
-			        this.selected.deselect();
-                    this.selected = ds;
+			        selected.deselect();
+                    selected = ds;
                     ds.select();
                     break;
                 }
             }
-            this.selected.deselect = Canvas.NOSELECTION;
+            selected = Canvas.NOSELECTION;
 		}
 
 		@Override

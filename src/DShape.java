@@ -26,8 +26,8 @@ public abstract class DShape {
         this.info = info;
     }
     
-    public boolean contains(double x, double y){
-    	return shape.contains(x, y);
+    public boolean contains(int x, int y){
+    	return info.contains(x, y);
     }
 
 	public void revertListeners() {

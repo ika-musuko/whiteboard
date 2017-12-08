@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Rectangle;
 
 class Info {
     protected int x;
@@ -27,6 +28,10 @@ class Info {
 
     public Color getColor() {
         return this.color;
+    }
+    
+    public boolean contains(int x, int y){
+    	return (new Rectangle(x,y,w,h).contains(x, y));
     }
 
     public void setColor(Color color) {
