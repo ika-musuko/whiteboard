@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.Ellipse2D;
 
 public class DEllipse extends DShape {
     public void draw(Graphics g) {

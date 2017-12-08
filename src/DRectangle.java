@@ -1,6 +1,5 @@
-import java.awt.Color;
-import java.awt.Shape;
-import java.awt.geom.Rectangle2D;
+import java.awt.*;
+import java.awt.event.*;
 
 public class DRectangle extends DShape {
     public void draw(Graphics g) {

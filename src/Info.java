@@ -7,7 +7,11 @@ class Info {
     protected double h;
     protected Color color;
     protected boolean selected;
-    
+   
+    public Info() {
+        this(10, 10, 100, 100);
+    }
+
     public Info(double x, double y, double w, double h){
         this(Color.GRAY, x, y, w, h);
     }
