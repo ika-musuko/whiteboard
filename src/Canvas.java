@@ -42,7 +42,6 @@ public class Canvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
-    	System.out.println(shapeList.size());
         for (DShape ds : this.shapeList) {
             ds.draw(g2);
             if(ds == this.selected)
