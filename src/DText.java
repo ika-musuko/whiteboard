@@ -12,6 +12,7 @@ public class DText extends DShape{
 	@Override
 	protected void draw(Graphics g) {
 		TextInfo ti = (TextInfo)this.info;
+		g.setColor(this.info.getColor());
         g.setFont(ti.getFont());
         g.setClip(ti.getX(), ti.getY(), ti.getWidth(), ti.getHeight()*3/2);
         g.drawString(ti.getText(), ti.getX(), ti.getY()+ti.getHeight());
