@@ -15,11 +15,12 @@ public class Canvas extends JPanel implements InfoListener {
 	private static final long serialVersionUID = 1L;
 	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
     private List<DShape> shapeList;
+    private List<InfoListener> selectedListeners;
     private DShape selected;
 
     // InfoListener implement
     public void infoChanged(Info info){
-        repaint();
+        this.refresh();
     }
 
 	public Canvas(){
@@ -30,28 +31,35 @@ public class Canvas extends JPanel implements InfoListener {
 
     public Canvas(List<DShape> shapeList){
         this.shapeList = shapeList;
+        this.selectedListeners = new ArrayList<>();
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
-        this.repaint();
+        this.refresh();
         this.selected = Canvas.NOSELECTION;
     }
 
     public void addShape(DShape ds) {
         ds.getInfo().addListener(new InfoListener() {
             public void infoChanged(Info info){
-                repaint();
+                refresh();
             }
         });
 
         this.shapeList.add(ds);
         this.selected = ds;
-        this.repaint();
+        this.refresh();
+    }
+
+    public void refresh() {
+        revalidate();
+        repaint();
     }
 
     public void resetArray()
     {
     	shapeList = new ArrayList<DShape>();
+        this.refresh();
     }
     
     @Override
@@ -80,6 +88,7 @@ public class Canvas extends JPanel implements InfoListener {
             ((TextInfo)this.selected.getInfo()).setText(text);
             System.out.println(((TextInfo)this.selected.getInfo()).getText());
         }
+        this.refresh();
     }
     
     public void saveToPNG()
@@ -120,6 +129,7 @@ public class Canvas extends JPanel implements InfoListener {
                 }
             }
             System.out.println("SELECTED SHAPE: "+selected);
+            refresh();
 		}
 
 		@Override
