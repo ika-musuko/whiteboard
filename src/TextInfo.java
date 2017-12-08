@@ -1,26 +1,43 @@
-import java.awt.Color;
+import java.awt.*;
 
 class TextInfo extends Info {
-    private String face;
+    private Font font;
+    private String text;
 
-    public TextInfo(String face, Color color, int x, int y, int w, int h) {
+    public TextInfo(){
+        this(10, 10, 100, 100);
+    }
+
+    public TextInfo(String text, Font font, Color color, int x, int y, int w, int h) {
         super(color, x, y, w, h);
-        this.face = face;
+        this.font = font;
     }
 
     public TextInfo(int x, int y, int w, int h){
-        this("Arial", Color.GRAY, x, y, w, h);
+        this("Hello!", x, y, w, h);
     }
 
-    public TextInfo(String face, int x, int y, int w, int h) {
-        this(face, Color.GRAY,  x, y, w, h);
+    public TextInfo(String text, int x, int y, int w, int h){
+        this(text, new Font("Arial", Font.PLAIN, 10), Color.GRAY, x, y, w, h);
     }
 
-    public String getFace() {
-        return this.face;
+    public TextInfo(String text, Font font, int x, int y, int w, int h) {
+        this(font, Color.GRAY,  x, y, w, h);
     }
 
-    public void setFace(String face) {
-        this.face = face;
+    public String getText() {
+        return this.text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Font getFont() {
+        return this.font;
+    }  
+
+    public void setFont(Font font){
+        this.font = font;
     }
 }
