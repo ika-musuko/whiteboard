@@ -28,5 +28,4 @@ public abstract class DShape implement InfoListener{
     public boolean contains(int x, int y){
     	return info.contains(x, y);
     }
-
 }

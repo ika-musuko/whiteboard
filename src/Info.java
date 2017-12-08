@@ -8,7 +8,9 @@ class Info {
     protected int h;
     protected Color color;
     protected boolean selected;
-   
+
+    protected List<InfoListener> listeners;
+
     public Info() {
         this(10, 10, 100, 100);
     }
@@ -24,20 +26,17 @@ class Info {
         this.h = h;
         this.color = color;
         this.selected = false;
+        this.listeners = new ArrayList<>();
+    }
+
+    public boolean contains(int x, int y){
+    	return (new Rectangle(x,y,w,h).contains(x, y));
     }
 
     public Color getColor() {
         return this.color;
     }
     
-    public boolean contains(int x, int y){
-    	return (new Rectangle(x,y,w,h).contains(x, y));
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public int getX() {
         return this.x;
     }
@@ -54,43 +53,33 @@ class Info {
         return this.h;
     }
 
+    protected void notifyListeners() {
+        for (InfoListener il : this.listeners)
+            il.infoChanged(this.info);
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+        this.notifyListeners();
+    }
+
     public void setX(int x) {
         this.x = x;
+        this.notifyListeners();
     }
 
     public void setY(int y) {
         this.y = y;
+        this.notifyListeners();
     }
 
     public void setWidth(int w) {
         this.w = w;
+        this.notifyListeners();
     }
 
     public void setHeight(int h) {
         this.h = h; 
-    }
-    
-   
-    public boolean isSelected(){
-        return this.selected;
-    }
-
-    public void select() {
-        this.selected = true;
-    }
-
-    public void deselect() {
-        this.selected = false;
-    }
-
-    public void revertListeners() {
-		
-		
-	}
-
-	public void addListeners() {
-		
-		
-	}
-    
+        this.notifyListeners();
+    } 
 }
