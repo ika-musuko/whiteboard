@@ -19,8 +19,8 @@ public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
-        whiteboard.addShape(new DEllipse(50, 50, 100, 90));
-        whiteboard.addShape(new DRectangle(300, 60, 70, 90));
+        //whiteboard.addShape(new DEllipse(50, 50, 100, 90));
+        //whiteboard.addShape(new DRectangle(300, 60, 70, 90));
 	}
 	
 	private static final long serialVersionUID = 1L;
