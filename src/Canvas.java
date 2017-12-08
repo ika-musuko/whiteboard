@@ -7,10 +7,10 @@ import java.util.*;
 public class Canvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final DShape noSelection = new DRectangle(0.0, 0.0, 0.0, 0.0);		//dummy shape to point to when there is no selection
+	private static final DShape NOSELECTION = new DRectangle(0.0, 0.0, 0.0, 0.0);		//dummy shape to point to when there is no selection
 
     private List<DShape> shapeList;
-    private DShape selected = null;
+    private DShape selected;
 
 	public Canvas(){
         this(new ArrayList<>());
@@ -24,6 +24,7 @@ public class Canvas extends JPanel {
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
         this.repaint();
+        this.selected = Canvas.NOSELECTION;
     }
 
     public void addShape(DShape ds) {
@@ -49,7 +50,15 @@ public class Canvas extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			
+            for(DShape ds : this.shapeList){
+                if(ds.contains(e.getX(), e.getY())){
+			        this.selected.deselect();
+                    this.selected = ds;
+                    ds.select();
+                    break;
+                }
+            }
+            this.selected.deselect = Canvas.NOSELECTION;
 		}
 
 		@Override

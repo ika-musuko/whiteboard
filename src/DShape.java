@@ -18,6 +18,15 @@ public abstract class DShape {
  
     protected abstract void draw(Graphics g); // override this method to decide how to draw
 
+    public void select() {
+        this.info.select();
+    }
+
+    public void deselect() {
+        this.info.deselect();
+    }
+
+
     public Info getInfo() {
         return this.info;
     }
