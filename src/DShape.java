@@ -5,6 +5,10 @@ public abstract class DShape {
     protected Info info; 
     protected abstract void draw(Graphics g); // override this method to decide how to draw
 
+    public DShape(){
+    	this.setInfo(new Info());
+    }
+    
     public DShape(Info info) {
         this.setInfo(info);
     }

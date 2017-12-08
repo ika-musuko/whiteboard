@@ -7,7 +7,7 @@ import java.util.*;
 public class Canvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private static final DShape NOSELECTION = new DRectangle();		//dummy shape to point to when there is no selection
+	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
     private List<DShape> shapeList;
     private DShape selected;
 
