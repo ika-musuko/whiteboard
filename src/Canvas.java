@@ -104,13 +104,13 @@ public class Canvas extends JPanel implements InfoListener {
 	    	g2.dispose();
 	    	try
 	    	{
-	    		ImageIO.write(image, "png", new File(chooser.getSelectedFile().getAbsolutePath()));
+	    		ImageIO.write(image, "png", new File(chooser.getSelectedFile().getAbsolutePath() + ".png"));
 	    	}
 	    	catch(IOException e)
 	    	{
 	    		e.printStackTrace();
 	    	}
-	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath());
+	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath() + ".png");
     	}
     	
     }
