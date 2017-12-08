@@ -1,25 +1,59 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.awt.AWTException;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
+import javax.swing.JFileChooser;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.*;
 
 public class ControlPanel extends JPanel {
   
 	private static final long serialVersionUID = 1L;
+    private Whiteboard whiteboard;
+    private JTextField textEditor;
 
-public ControlPanel() {
-		
-	
-		//sets the layout of all the panes to be aligned vertically
+    public void enableText(String s){
+        this.textEditor.setEnabled(true);
+        this.textEditor.setText(s);
+    }
+
+    public void disableText(){
+        this.textEditor.setText("");
+        this.textEditor.setEnabled(false);
+    }
+
+    public ControlPanel(Whiteboard whiteboard) {	 
+    	// init fields
+        this.whiteboard = whiteboard;
+        this.textEditor = new JTextField();
+    	
+    	//sets the layout of all the panes to be aligned vertically
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setVisible(true);
-		
+		this.setVisible(true);	
+
 		//*****Add buttons section*******
 		JPanel addButtons = new JPanel();
 		addButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -29,9 +63,7 @@ public ControlPanel() {
 		JButton addRect = new JButton("Rect");
 		JButton addOval = new JButton("Oval");
 		JButton addLine = new JButton("Line");
-		addLine.setEnabled(false);
 		JButton addText = new JButton("Text");
-		addText.setEnabled(false);											//10 10 20 20 
 		
 		addButtons.add(preButtonAddText);
 		addButtons.add(addRect);
@@ -44,25 +76,28 @@ public ControlPanel() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//*******Add rectangle of random size and location******
-				
+				whiteboard.addShape(new DRectangle());
 			}
 		});
 		addOval.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add ellipse of random size and location*******
+                whiteboard.addShape(new DEllipse());
 			}
 		});
 		addLine.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add line of default size and location*******
+				whiteboard.addShape(new DLine());
 			}
 		});
 		addText.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add text of default size and location*******
+				whiteboard.addShape(new DText());
 			}
 		});
 		
@@ -75,19 +110,31 @@ public ControlPanel() {
 		editTextPanel.setVisible(true);
 		
 		JLabel preEditText = new JLabel("Edit Text:");
-		JTextField textEditor = new JTextField();
+        
+        // configure text editor
 		textEditor.setColumns(30);				//***********TO ADD: font dropdown selection
 		
 		editTextPanel.add(preEditText);
 		editTextPanel.add(textEditor);
 		
 		//*************listeners************
-		textEditor.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//update the text on the selected canvas shape every time the text box is changed
-			}
-		});
+        // update the text based on the selected shape's model
+		textEditor.getDocument().addDocumentListener(new DocumentListener() {
+            public void updater(){
+                if(whiteboard.getCanvas().getSelected().getInfo() instanceof TextInfo)
+                    ((TextInfo)whiteboard.getCanvas().getSelected().getInfo()).setText(textEditor.getText()); 
+            }
+            public void insertUpdate(DocumentEvent de){
+                updater();
+            }
+
+            public void removeUpdate(DocumentEvent de){
+                updater();
+            }
+            public void changedUpdate(DocumentEvent de){
+            
+            }
+        });
 		
 		this.add(editTextPanel);
 		//******************************
@@ -108,6 +155,7 @@ public ControlPanel() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//bring up a dialog box which allows the user to select a color for the selected object
+				colorPicker();
 			}
 		});
 		
@@ -172,6 +220,7 @@ public ControlPanel() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//save the locations and specifications of the shape infos into a file, xml? txt? something else?
+				whiteboard.fileSaver();
 			}
 		});
 		loadButton.addActionListener(new ActionListener(){
@@ -179,6 +228,12 @@ public ControlPanel() {
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to select the file they want to load, load the info from the file
 				//and recreate the shapes in their specified locations
+				try {
+					whiteboard.fileLoader();
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		saveToPngButton.addActionListener(new ActionListener(){
@@ -186,6 +241,7 @@ public ControlPanel() {
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to choose the name and location of the file they want to save
 				//then save the whiteboard to a png file
+				whiteboard.getCanvas().saveToPNG();
 			}
 		});
 		
@@ -220,6 +276,12 @@ public ControlPanel() {
 		});
 		
 		this.add(networkPanel);
-		//******************************
-   }
+    }
+
+
+    public void colorPicker(){
+    	Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLUE);
+    	this.whiteboard.getCanvas().getSelected().info.setColor(color);
+    	this.whiteboard.getCanvas().refresh(); //change this to method ?
+    }
 }

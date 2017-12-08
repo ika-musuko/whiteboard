@@ -22,17 +22,17 @@ class TextInfo extends Info {
         return this.text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public Font getFont() {
         return new Font(this.font, Font.PLAIN, this.h);
     }  
     
-    public String getFontName()
-    {
+    public String getFontName(){
     	return this.font;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        this.notifyListeners();
     }
 
     public void setFont(String font){

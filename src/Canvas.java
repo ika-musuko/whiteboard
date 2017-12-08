@@ -16,6 +16,7 @@ public class Canvas extends JPanel implements InfoListener {
 	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
     private List<DShape> shapeList;
     private List<InfoListener> selectedListeners;
+    private Whiteboard whiteboard;
     private DShape selected;
 
     // InfoListener implement
@@ -23,20 +24,33 @@ public class Canvas extends JPanel implements InfoListener {
         this.refresh();
     }
 
-	public Canvas(){
-        this(new ArrayList<>());
-        ClickListener cl = new ClickListener();
-        this.addMouseListener(cl);
+	public Canvas(Whiteboard whiteboard){
+        this(whiteboard, new ArrayList<>());
 	}
 
-    public Canvas(List<DShape> shapeList){
+    public Canvas(Whiteboard whiteboard, List<DShape> shapeList){
+        // init the fields
+        this.whiteboard = whiteboard;
         this.shapeList = shapeList;
         this.selectedListeners = new ArrayList<>();
+        this.selected = Canvas.NOSELECTION; 
+        
+        // init the main canvas mouse click listener
+        ClickListener cl = new ClickListener();
+        this.addMouseListener(cl);
+        
+        // display the canvas
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
         this.refresh();
-        this.selected = Canvas.NOSELECTION;
+    }
+
+    public void verifyText() {
+       if(this.selected.getInfo() instanceof TextInfo)
+            this.whiteboard.getControlPanel().enableText( ((TextInfo)this.selected.getInfo()).getText() );
+       else
+            this.whiteboard.getControlPanel().disableText();
     }
 
     public void addShape(DShape ds) {
@@ -45,10 +59,15 @@ public class Canvas extends JPanel implements InfoListener {
                 refresh();
             }
         });
-
+        
         this.shapeList.add(ds);
-        this.selected = ds;
+        this.select(ds);
         this.refresh();
+    }
+
+    private void select(DShape ds) {
+        this.selected = ds;
+        this.verifyText();
     }
 
     public void refresh() {
@@ -82,15 +101,7 @@ public class Canvas extends JPanel implements InfoListener {
     public DShape getSelected(){
     	return selected;
     }
-
-    public void updateText(String text) {
-        if(this.selected instanceof DText){
-            ((TextInfo)this.selected.getInfo()).setText(text);
-            System.out.println(((TextInfo)this.selected.getInfo()).getText());
-        }
-        this.refresh();
-    }
-    
+ 
     public void saveToPNG()
     {
     	JFileChooser chooser = new JFileChooser();
@@ -124,7 +135,7 @@ public class Canvas extends JPanel implements InfoListener {
             for(DShape ds : shapeList){
                 //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
                 if(ds.contains(e.getX(), e.getY())){
-                    selected = ds;
+                    select(ds);
                     break;
                 }
             }
