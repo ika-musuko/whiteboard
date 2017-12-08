@@ -390,8 +390,7 @@ public class Whiteboard extends JFrame {
     		}
     		
     		scanner.close();
-    	}
-    
+    	} 
     }
 
 }
