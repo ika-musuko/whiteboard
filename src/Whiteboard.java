@@ -7,10 +7,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -368,7 +366,7 @@ public class Whiteboard extends JFrame {
     			if(shape instanceof DText)
     			{
     				text += (" " + '"' + ((TextInfo) shape.getInfo()).getText() + '"' + " ");
-    				text += ((TextInfo) shape.getInfo()).getFontName();		
+    				text += ('"' + ((TextInfo) shape.getInfo()).getFontName() + '"' + " ");	
     			}
     			out.println(text);
     		}
@@ -421,7 +419,15 @@ public class Whiteboard extends JFrame {
     				
     				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
     				
-    				String fontName = scanner.next();
+    				String fontName = "";
+    				c = ' ';
+    				while(c != '"')
+    				{
+    					fontName += scanner.next();
+    					fontName += " ";
+    					c = fontName.charAt(fontName.length() - 2);
+    				}
+    				fontName = fontName.substring(1, fontName.length() - 2);  // get rid of beginning and end quotes
     				
     				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
     				shape = new DText(infoT);
