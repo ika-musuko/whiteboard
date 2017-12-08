@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -181,6 +182,7 @@ public class Whiteboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//bring up a dialog box which allows the user to select a color for the selected object
+				colorPicker();
 			}
 		});
 		
@@ -391,6 +393,13 @@ public class Whiteboard extends JFrame {
     		
     		scanner.close();
     	} 
+    }
+    
+    public void colorPicker()
+    {
+    	Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLUE);
+    	this.canvas.getSelected().info.setColor(color);
+    	this.canvas.repaint(); //change this to method ?
     }
 
 }

@@ -21,7 +21,6 @@ public class Canvas extends JPanel {
         this.shapeList = shapeList;
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
-
 		this.setVisible(true);
         this.repaint();
         this.selected = Canvas.NOSELECTION;
