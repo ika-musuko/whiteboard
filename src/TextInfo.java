@@ -1,21 +1,21 @@
 import java.awt.*;
 
 class TextInfo extends Info {
-    private Font font;
+    private String font;
     private String text;
 
     public TextInfo(){
-        this("Default", new Font("Arial", Font.PLAIN, 10), Color.GRAY, 10, 10, 200, 75);
+        this("Default", "Arial", Color.GRAY, 10, 10, 200, 75);
     }
 
-    public TextInfo(String text, Font font, Color color, int x, int y, int w, int h) {
+    public TextInfo(String text, String font, Color color, int x, int y, int w, int h) {
         super(color, x, y, w, h);
         this.font = font;
         this.text = text;
     }
 
     public TextInfo(String text, int x, int y, int w, int h){
-        this(text, new Font("Arial", Font.PLAIN, 10), Color.GRAY, x, y, w, h);
+        this(text, "Arial", Color.GRAY, x, y, w, h);
     }
 
     public String getText() {
@@ -32,5 +32,15 @@ class TextInfo extends Info {
 
     public void setFont(Font font){
         this.font = font;
+        this.notifyListeners();
+    }
+
+    public Font getFont() {
+        return new Font(this.font, Font.PLAIN, this.h);
+    }  
+
+    public void setFont(String font){
+        this.font = font;
+        this.notifyListeners();
     }
 }

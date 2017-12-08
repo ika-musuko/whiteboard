@@ -1,9 +1,18 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.Point;
 
-public abstract class DShape {
+public abstract class DShape implements InfoListener{
     protected Info info; 
     protected abstract void draw(Graphics g); // override this method to decide how to draw
+    protected static final int KNOB_SIZE = 9;
+
+    public void drawKnobs(Graphics g) {
+        for (Point p : this.info.getKnobs()){
+            g.setColor(Color.BLACK);
+            g.fillRect((int)p.getX()-(KNOB_SIZE/2), (int)p.getY()-(KNOB_SIZE/2), KNOB_SIZE, KNOB_SIZE); // why
+        }
+    }
 
     public DShape(){
     	this.setInfo(new Info());
@@ -13,15 +22,10 @@ public abstract class DShape {
         this.setInfo(info);
     }
 
-    public void select() {
-        this.info.select();
+    public void infoChanged(Info info){
+        this.setInfo(info);
     }
-
-    public void deselect() {
-        this.info.deselect();
-    }
-
-
+    
     public Info getInfo() {
         return this.info;
     }
@@ -33,12 +37,4 @@ public abstract class DShape {
     public boolean contains(int x, int y){
     	return info.contains(x, y);
     }
-
-	public void revertListeners() {
-		info.revertListeners();
-	}
-
-	public void addListeners() {
-		info.addListeners();
-	}
 }
