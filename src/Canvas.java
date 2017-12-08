@@ -57,7 +57,9 @@ public class Canvas extends JPanel {
 			while(iterator.hasNext() && !found){
 				DShape temp = iterator.next();
 				if(temp.contains(e.getX(), e.getY())){
+					selected.revertListeners();
 					selected = temp;
+					selected.addListeners();
 					System.out.println(selected.getShape() + " is selected!");
 					found = true;
 				}

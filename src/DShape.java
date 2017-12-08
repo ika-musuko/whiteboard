@@ -30,6 +30,14 @@ public abstract class DShape {
     	else
     		return false;
     }
+
+	public void revertListeners() {
+		info.revertListeners();
+	}
+
+	public void addListeners() {
+		info.addListeners();
+	}
     
     
 }
