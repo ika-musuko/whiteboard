@@ -12,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
 import javax.swing.JFileChooser;
 import javax.swing.Box;
@@ -244,6 +246,7 @@ public class Whiteboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//save the locations and specifications of the shape infos into a file, xml? txt? something else?
+				fileSaver();
 			}
 		});
 		loadButton.addActionListener(new ActionListener(){
@@ -322,6 +325,62 @@ public class Whiteboard extends JFrame {
 	    statusTable.setVisible(true);
     }
     
+    public void fileSaver()
+    {
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setDialogTitle("Save");
+    	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	
+    	int returnVal = chooser.showSaveDialog(null);
+    	
+    	if(returnVal == JFileChooser.APPROVE_OPTION)
+    	{
+    		File selectedFile = chooser.getSelectedFile();
+    		
+    		try (PrintWriter out = new PrintWriter(selectedFile)){
+    		
+    		for (DShape shape : this.canvas.getShapeList()) 
+    		{
+    			String text = "";
+    			
+    			if(shape instanceof DRectangle)
+    			{
+    				text += "Rectangle ";
+    			}
+    			else if(shape instanceof DEllipse)
+    			{
+    				text += "Ellipse ";
+    			}
+    			else if(shape instanceof DLine)
+    			{
+    				text += "Line ";
+    			}
+    			else if(shape instanceof DText)
+    			{
+    				text += "Text ";
+    			}
+    			
+    			text += ("#" + Integer.toHexString(shape.getInfo().getColor().getRGB()).substring(2).toUpperCase() + " ");
+    			text += shape.getInfo().getX() + " " + shape.getInfo().getY() + " " + shape.getInfo().getWidth() + " " + shape.getInfo().getHeight();
+    			
+    			if(shape instanceof DText)
+    			{
+    				text += (" " + '"' + ((TextInfo) shape.getInfo()).getText() + '"' + " ");
+    				text += ((TextInfo) shape.getInfo()).getFontName();		
+    			}
+    			out.println(text);
+    		}
+    		
+    	
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		System.out.println("Save as file: " + selectedFile.getAbsolutePath());
+    		
+    	}
+    }
+    
     public void fileLoader() throws FileNotFoundException
     {
     	this.canvas.resetArray();
@@ -333,7 +392,7 @@ public class Whiteboard extends JFrame {
     		File file = chooser.getSelectedFile();
     		Scanner scanner = new Scanner(file); 
     		
-    		while(scanner.hasNextLine())
+    		while(scanner.hasNext())
     		{
     			DShape shape = null;
 

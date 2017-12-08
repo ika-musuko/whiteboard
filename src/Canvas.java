@@ -60,6 +60,11 @@ public class Canvas extends JPanel implements InfoListener {
         g2.dispose();
     }
     
+    public List<DShape> getShapeList()
+    {
+    	return shapeList;
+    }
+    
     public DShape getSelected(){
     	return selected;
     }

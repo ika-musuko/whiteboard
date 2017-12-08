@@ -29,6 +29,11 @@ class TextInfo extends Info {
     public Font getFont() {
         return new Font(this.font, Font.PLAIN, this.h);
     }  
+    
+    public String getFontName()
+    {
+    	return this.font;
+    }
 
     public void setFont(String font){
         this.font = font;
