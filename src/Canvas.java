@@ -48,9 +48,9 @@ public class Canvas extends JPanel implements InfoListener {
 
     public void verifyText() {
        if(this.selected.getInfo() instanceof TextInfo)
-            this.whiteboard.enableText(((TextInfo)this.selected.getInfo()).getText());
+            this.whiteboard.getControlPanel().enableText( ((TextInfo)this.selected.getInfo()).getText() );
        else
-            this.whiteboard.disableText();
+            this.whiteboard.getControlPanel().disableText();
     }
 
     public void addShape(DShape ds) {
