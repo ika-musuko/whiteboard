@@ -85,7 +85,6 @@ public class Whiteboard extends JFrame {
 		JButton addOval = new JButton("Oval");
 		JButton addLine = new JButton("Line");
 		JButton addText = new JButton("Text");
-		addText.setEnabled(false);
 		
 		addButtons.add(preButtonAddText);
 		addButtons.add(addRect);
@@ -119,6 +118,7 @@ public class Whiteboard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add text of default size and location*******
+				addShape(new DText());
 			}
 		});
 		
