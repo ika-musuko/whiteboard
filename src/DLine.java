@@ -1,12 +1,11 @@
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Graphics;
 
 public class DLine extends DShape {
 	public DLine(){
-		super();
+		this.setInfo(new LineInfo());
 	}
 	
-	public DLine(Info info){
+	public DLine(LineInfo info){
 		super(info);
 	}
 	
