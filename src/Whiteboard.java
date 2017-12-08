@@ -33,7 +33,7 @@ public class Whiteboard extends JFrame {
 		
         // initialize main window
 		super("whiteboard");
-		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)); 
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS)); 
 		
         // initialize each subwindow
         this.canvas         = new Canvas();
@@ -121,7 +121,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(addButtons);
+		controlPanel.add(addButtons);
 		//******************************
 		
 		//*****Text editing section*******
@@ -144,7 +144,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(editTextPanel);
+		controlPanel.add(editTextPanel);
 		//******************************
 		
 		//*****Shape color section*******
@@ -166,7 +166,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(shapeColorPanel);
+		controlPanel.add(shapeColorPanel);
 		//******************************
 		
 		//*****Edit shape section*******
@@ -204,7 +204,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(editShapePanel);
+		controlPanel.add(editShapePanel);
 		//******************************
 		
 		//*****FileIO section*******
@@ -244,7 +244,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(fileIOPanel);
+		controlPanel.add(fileIOPanel);
 		//******************************
 		
 		//*****Networking section*******
@@ -274,7 +274,7 @@ public class Whiteboard extends JFrame {
 			}
 		});
 		
-		this.add(networkPanel);
+		controlPanel.add(networkPanel);
 		//******************************
     }
 	
