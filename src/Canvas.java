@@ -21,21 +21,33 @@ public class Canvas extends JPanel {
         this.shapeList = shapeList;
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
+
 		this.setVisible(true);
         this.repaint();
         this.selected = Canvas.NOSELECTION;
     }
 
     public void addShape(DShape ds) {
+
         this.shapeList.add(ds);
+        System.out.println("printing: " + ds);
         this.repaint();
     }
 
+    public void resetArray()
+    {
+    	shapeList = new ArrayList<DShape>();
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+    	System.out.println("a");
         Graphics2D g2 = (Graphics2D) g.create();
+    	System.out.println(shapeList.size());
         for (DShape ds : this.shapeList) {
+        	System.out.println(shapeList.size());
+        	System.out.println(ds);
             ds.draw(g2);
             if(ds == this.selected)
                 ds.drawKnobs(g2);

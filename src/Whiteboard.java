@@ -29,14 +29,15 @@ public class Whiteboard extends JFrame {
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
 		
-		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 90));
-		DRectangle dr = new DRectangle(new Info(Color.BLACK, 300, 60, 70, 90));
+		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 200));
+		DRectangle dr = new DRectangle(new Info(Color.RED, 50, 50, 100, 200));
 		//whiteboard.addShape(de);
 		//whiteboard.addShape(dr);
 		List<DShape> list = new ArrayList<DShape>();
 		list.add(de);
 		list.add(dr);
 		//canvas = new Canvas(list);
+		
 		
 	}
 	
@@ -102,7 +103,6 @@ public class Whiteboard extends JFrame {
 		JButton addOval = new JButton("Oval");
 		JButton addLine = new JButton("Line");
 		JButton addText = new JButton("Text");
-		addText.setEnabled(false);
 		
 		addButtons.add(preButtonAddText);
 		addButtons.add(addRect);
@@ -325,6 +325,8 @@ public class Whiteboard extends JFrame {
     
     public void fileLoader() throws FileNotFoundException
     {
+    	//this.canvas = new Canvas();
+    	this.canvas.resetArray();
     	JFileChooser chooser = new JFileChooser();
     	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
     	int returnVal = chooser.showOpenDialog(null);
@@ -343,17 +345,17 @@ public class Whiteboard extends JFrame {
     			String shapeType = scanner.next();
     			
     			// all parameters will be saved into info object at the end
-    			Info info = null; 
+    			//Info info; 
     			
 				String colorHexVal = scanner.next();
 				Color color = Color.decode(colorHexVal);
 				int x = scanner.nextInt();
 				int y = scanner.nextInt();
-				int height = scanner.nextInt();
-				int width = scanner.nextInt();	
+				int width = scanner.nextInt();
+				int height = scanner.nextInt();	
 				
 				System.out.println(shapeType + " " + color.getRed() + color.getGreen() + color.getBlue() +
-					" " + x + " " + y + " " + height + " " + width);
+					" " + x + " " + y + " " + width + " " + height);
 
     			
     			if(shapeType.equals("Text"))
@@ -370,35 +372,45 @@ public class Whiteboard extends JFrame {
     				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
     				
     				String fontName = scanner.next();
-    				Font font = new Font(fontName, Font.PLAIN, 10);
     				
-    				TextInfo infoT = new TextInfo(text, font, color, x, y, width, height);
+    				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
     				shape = new DText(infoT);
+    				//shapeList.add(shape);
     				
-    				System.out.println(text + " " + font.getName());
+    				System.out.println(text + " " + fontName);
+    			}
+    			else if(shapeType.equals("Line"))
+    			{
+    				LineInfo infoL = new LineInfo(color, x, y, width, height);
+    				shape = new DLine(infoL);
+    				//addShape(shape);
+    				//shapeList.add(shape);
     			}
     			else
     			{
-    				info = new Info(color, x, y, width, height);
+    				Info info = new Info(color, x, y, width, height);
     				
-	    			if(shapeType == "Rectangle")
+	    			if(shapeType.equals("Rectangle"))
 	    			{
 	    				shape = new DRectangle(info);
+	    				//addShape(shape);
+	    				//shapeList.add(shape);
 	    			}
-	    			else if(shapeType == "Ellipse")
+	    			else if(shapeType.equals("Ellipse"))
 	    			{
 	    				shape = new DEllipse(info);
-	    			}
-	    			else if(shapeType == "Line")
-	    			{
-	    				shape = new DLine(info);
+	    				//addShape(shape);
+	    				//shapeList.add(shape);
 	    			}
     			}
 
+    			
     			addShape(shape);
     			//shapeList.add(shape);
     		}
     		
+			
+			
     		//this.canvas = new Canvas(shapeList);
     		scanner.close();
     	}
