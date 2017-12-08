@@ -30,7 +30,6 @@ public class Canvas extends JPanel {
     public void addShape(DShape ds) {
 
         this.shapeList.add(ds);
-        System.out.println("printing: " + ds);
         this.repaint();
     }
 
@@ -42,12 +41,9 @@ public class Canvas extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-    	System.out.println("a");
         Graphics2D g2 = (Graphics2D) g.create();
     	System.out.println(shapeList.size());
         for (DShape ds : this.shapeList) {
-        	System.out.println(shapeList.size());
-        	System.out.println(ds);
             ds.draw(g2);
             if(ds == this.selected)
                 ds.drawKnobs(g2);
