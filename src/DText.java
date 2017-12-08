@@ -13,7 +13,7 @@ public class DText extends DShape{
 	protected void draw(Graphics g) {
 		TextInfo ti = (TextInfo)this.info;
         g.setFont(ti.getFont());
-        g.setClip(ti.getX(), ti.getY(), ti.getWidth(), ti.getHeight());
+        g.setClip(ti.getX(), ti.getY(), ti.getWidth(), ti.getHeight()*3/2);
         g.drawString(ti.getText(), ti.getX(), ti.getY()+ti.getHeight());
 	}
 }
