@@ -38,6 +38,8 @@ public class Canvas extends JPanel {
         for (DShape ds : this.shapeList) {
             //System.out.println("X COORD OF SHAPE: "+ds.getShape().getBounds().getX());
             g2.fill(ds.getShape());
+            //if(ds == this.selected)
+            	//add code to ADD KNOBS here
         }
         g2.dispose();
     }
@@ -62,7 +64,7 @@ public class Canvas extends JPanel {
 			}
 			if(!found){
 				selected = noSelection;
-				System.out.println(selected.getShape() + " is selected!");
+				System.out.println("Nothing selected!");
 			}
 			
 		}
