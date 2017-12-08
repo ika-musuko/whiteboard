@@ -24,6 +24,7 @@ public class Canvas extends JPanel {
 		this.setVisible(true);
         this.repaint();
         this.selected = Canvas.NOSELECTION;
+        
     }
 
     public void addShape(DShape ds) {
@@ -35,8 +36,13 @@ public class Canvas extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
-        for (DShape ds : this.shapeList) {
-            ds.draw(g2);
+       // for (DShape ds : this.shapeList) {
+        for(int i = 0; i < shapeList.size(); i++)
+        {
+        	System.out.println("shapeList size: " + shapeList.size());
+        	System.out.println("Drawing Shape: " + shapeList.get(i));
+            //ds.draw(g2);
+        	shapeList.get(i).draw(g2);
         }
         g2.dispose();
     }

@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -27,8 +28,16 @@ public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
 		Whiteboard whiteboard = new Whiteboard();
-        //whiteboard.addShape(new DEllipse(50, 50, 100, 90));
-        //whiteboard.addShape(new DRectangle(300, 60, 70, 90));
+		
+		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 90));
+		DRectangle dr = new DRectangle(new Info(Color.BLACK, 300, 60, 70, 90));
+		//whiteboard.addShape(de);
+		//whiteboard.addShape(dr);
+		List<DShape> list = new ArrayList<DShape>();
+		list.add(de);
+		list.add(dr);
+		//canvas = new Canvas(list);
+		
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -322,57 +331,78 @@ public class Whiteboard extends JFrame {
     	if(returnVal == JFileChooser.APPROVE_OPTION)
     	{
     		File file = chooser.getSelectedFile();
-    		Scanner scanner = new Scanner(file); //.useDelimiter(" ");
+    		Scanner scanner = new Scanner(file); 
     		
-    		List<DShape> shapesTextFile = new ArrayList<DShape>();
+    		List<DShape> shapeList = new ArrayList<DShape>();
     		
     		while(scanner.hasNextLine())
     		{
+    			DShape shape = null;
 
     			// default parameters for Info
     			String shapeType = scanner.next();
-    			int x, y, height, width, r, g, b;
-    			Color color = null;
     			
+    			// all parameters will be saved into info object at the end
+    			Info info = null; 
     			
-    			if(shapeType == "Text")
-    			{
-    				
-    				//TextInfo info = new TextInfo(color, x, y, height, width);
-    			}
-    			else // Rectangle , Ellipse, Line
-    			{
+				String colorHexVal = scanner.next();
+				Color color = Color.decode(colorHexVal);
+				int x = scanner.nextInt();
+				int y = scanner.nextInt();
+				int height = scanner.nextInt();
+				int width = scanner.nextInt();	
+				
+				System.out.println(shapeType + " " + color.getRed() + color.getGreen() + color.getBlue() +
+					" " + x + " " + y + " " + height + " " + width);
 
-    				r = scanner.nextInt();
-    				g = scanner.nextInt();
-    				b = scanner.nextInt();
-    				color = new Color(r,g,b);
-    				x = scanner.nextInt();
-    				y = scanner.nextInt();
-    				height = scanner.nextInt();
-    				width = scanner.nextInt();	
+    			
+    			if(shapeType.equals("Text"))
+    			{
+    				String text = "";
+    				char c = ' ';
+    				while(c != '"')
+    				{
+    					text += scanner.next();
+    					text += " ";
+    					c = text.charAt(text.length() - 2);
+    				}
     				
-    				System.out.println(shapeType + " " + color.getRed() + color.getGreen() + color.getBlue() +
-    					" " + x + " " + y + " " + height + " " + width);
-    
-    				Info info = new Info(color, x, y, height, width);
+    				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
+    				
+    				String fontName = scanner.next();
+    				Font font = new Font(fontName, Font.PLAIN, 10);
+    				
+    				TextInfo infoT = new TextInfo(text, font, color, x, y, width, height);
+    				shape = new DText(infoT);
+    				
+    				System.out.println(text + " " + font.getName());
     			}
-    			
-    			
-    			//DShape shape = new DShape(info);
+    			else
+    			{
+    				info = new Info(color, x, y, width, height);
+    				
+	    			if(shapeType == "Rectangle")
+	    			{
+	    				shape = new DRectangle(info);
+	    			}
+	    			else if(shapeType == "Ellipse")
+	    			{
+	    				shape = new DEllipse(info);
+	    			}
+	    			else if(shapeType == "Line")
+	    			{
+	    				shape = new DLine(info);
+	    			}
+    			}
+
+    			addShape(shape);
+    			//shapeList.add(shape);
     		}
     		
-    		
-    		Canvas crud = new Canvas(shapesTextFile);
-    		
+    		//this.canvas = new Canvas(shapeList);
     		scanner.close();
     	}
-    	
-    	
-    	
-    	
+    
     }
-	
-    
-    
+
 }
