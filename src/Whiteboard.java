@@ -86,7 +86,7 @@ public class Whiteboard extends JFrame {
 		JButton addLine = new JButton("Line");
 		addLine.setEnabled(false);
 		JButton addText = new JButton("Text");
-		addText.setEnabled(false);											//10 10 20 20 
+		addText.setEnabled(false);
 		
 		addButtons.add(preButtonAddText);
 		addButtons.add(addRect);
