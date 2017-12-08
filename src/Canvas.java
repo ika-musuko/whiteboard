@@ -4,12 +4,17 @@ import javax.swing.JPanel;
 import java.util.List;
 import java.util.*;
 
-public class Canvas extends JPanel {
+public class Canvas extends JPanel implements InfoListener {
 
 	private static final long serialVersionUID = 1L;
 	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
     private List<DShape> shapeList;
     private DShape selected;
+
+    // InfoListener implement
+    public void infoChanged(Info info){
+        repaint();
+    }
 
 	public Canvas(){
         this(new ArrayList<>());
@@ -27,6 +32,11 @@ public class Canvas extends JPanel {
     }
 
     public void addShape(DShape ds) {
+        ds.getInfo().addListener(new InfoListener() {
+            public void infoChanged(Info info){
+                repaint();
+            }
+        });
         this.shapeList.add(ds);
         this.selected = ds;
         this.repaint();

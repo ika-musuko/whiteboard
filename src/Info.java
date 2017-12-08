@@ -100,4 +100,8 @@ class Info {
         this.h = h; 
         this.notifyListeners();
     } 
+
+    public void addListener(InfoListener il){
+        this.listeners.add(il);
+    }
 }
