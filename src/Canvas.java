@@ -55,9 +55,11 @@ public class Canvas extends JPanel {
             for(DShape ds : shapeList){
                 if(ds.contains(e.getX(), e.getY())){
                     selected = ds;
-                    System.out.println(selected);
+                    //System.out.println(selected);
+                    break;
                 }
             }
+            System.out.println("SELECTED SHAPE: "+selected);
 		}
 
 		@Override

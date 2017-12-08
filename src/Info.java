@@ -1,5 +1,9 @@
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.Point;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class Info {
     protected int x;
@@ -8,7 +12,6 @@ class Info {
     protected int h;
     protected Color color;
     protected boolean selected;
-
     protected List<InfoListener> listeners;
 
     public Info() {
@@ -53,9 +56,18 @@ class Info {
         return this.h;
     }
 
+    public List<Point> getKnobs() {
+        return new ArrayList<Point>(Arrays.asList(
+                                                  new Point(this.x       , this.y       )
+                                                 ,new Point(this.x+this.w, this.y       )
+                                                 ,new Point(this.x       , this.y+this.h)
+                                                 ,new Point(this.x+this.w, this.y+this.h)
+                                                 ));
+    }
+
     protected void notifyListeners() {
         for (InfoListener il : this.listeners)
-            il.infoChanged(this.info);
+            il.infoChanged(this);
     }
 
     public void setColor(Color color) {
