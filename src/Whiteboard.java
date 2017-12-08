@@ -31,7 +31,7 @@ public class Whiteboard extends JFrame {
 		
         // initialize main window
 		super("whiteboard");
-		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS)); 
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)); 
 		
         // initialize each subwindow
         this.canvas         = new Canvas();
