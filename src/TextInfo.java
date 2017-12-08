@@ -27,15 +27,6 @@ class TextInfo extends Info {
     }
 
     public Font getFont() {
-        return this.font;
-    }  
-
-    public void setFont(Font font){
-        this.font = font;
-        this.notifyListeners();
-    }
-
-    public Font getFont() {
         return new Font(this.font, Font.PLAIN, this.h);
     }  
 
