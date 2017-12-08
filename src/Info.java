@@ -1,10 +1,10 @@
 import java.awt.Color;
 
 class Info {
-    protected double x;
-    protected double y;
-    protected double w;
-    protected double h;
+    protected int x;
+    protected int y;
+    protected int w;
+    protected int h;
     protected Color color;
     protected boolean selected;
    
@@ -12,11 +12,11 @@ class Info {
         this(10, 10, 100, 100);
     }
 
-    public Info(double x, double y, double w, double h){
+    public Info(int x, int y, int w, int h){
         this(Color.GRAY, x, y, w, h);
     }
 
-    public Info(Color color, double x, double y, double w, double h) {
+    public Info(Color color, int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
         this.w = w;
@@ -33,35 +33,35 @@ class Info {
         this.color = color;
     }
 
-    public double getX() {
+    public int getX() {
         return this.x;
     }
 
-    public double getY() {
+    public int getY() {
         return this.y;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return this.w;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return this.h;
     }
 
-    public void setX(double x) {
+    public void setX(int x) {
         this.x = x;
     }
 
-    public void setY(double y) {
+    public void setY(int y) {
         this.y = y;
     }
 
-    public void setWidth(double w) {
+    public void setWidth(int w) {
         this.w = w;
     }
 
-    public void setHeight(double h) {
+    public void setHeight(int h) {
         this.h = h; 
     }
     
