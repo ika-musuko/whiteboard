@@ -52,10 +52,11 @@ public class Canvas extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
             selected = Canvas.NOSELECTION;
+            System.out.println("mouse: "+e.getX()+" "+e.getY());
             for(DShape ds : shapeList){
+                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
                 if(ds.contains(e.getX(), e.getY())){
                     selected = ds;
-                    //System.out.println(selected);
                     break;
                 }
             }

@@ -11,7 +11,6 @@ class Info {
     protected int w;
     protected int h;
     protected Color color;
-    protected boolean selected;
     protected List<InfoListener> listeners;
 
     public Info() {
@@ -28,12 +27,15 @@ class Info {
         this.w = w;
         this.h = h;
         this.color = color;
-        this.selected = false;
         this.listeners = new ArrayList<>();
     }
 
+    protected Rectangle getBounds() {
+        return (new Rectangle(this.x, this.y, this.w, this.h));
+    }
+
     public boolean contains(int x, int y){
-    	return (new Rectangle(x,y,w,h).contains(x, y));
+    	return this.getBounds().contains(x, y);
     }
 
     public Color getColor() {
