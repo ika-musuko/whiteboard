@@ -1,5 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import java.util.List;
 import java.util.*;
@@ -74,6 +80,30 @@ public class Canvas extends JPanel implements InfoListener {
             ((TextInfo)this.selected.getInfo()).setText(text);
             System.out.println(((TextInfo)this.selected.getInfo()).getText());
         }
+    }
+    
+    public void saveToPNG()
+    {
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+    	int returnVal = chooser.showSaveDialog(null);
+    	if(returnVal == JFileChooser.APPROVE_OPTION)
+    	{	
+	    	BufferedImage image = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+	    	Graphics2D g2 = image.createGraphics();
+	    	printAll(g2);
+	    	g2.dispose();
+	    	try
+	    	{
+	    		ImageIO.write(image, "png", new File(chooser.getSelectedFile().getAbsolutePath()));
+	    	}
+	    	catch(IOException e)
+	    	{
+	    		e.printStackTrace();
+	    	}
+	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath());
+    	}
+    	
     }
 
     private class ClickListener implements MouseListener{

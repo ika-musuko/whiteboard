@@ -1,15 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -267,6 +268,7 @@ public class Whiteboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to choose the name and location of the file they want to save
 				//then save the whiteboard to a png file
+				canvas.saveToPNG();
 			}
 		});
 		
