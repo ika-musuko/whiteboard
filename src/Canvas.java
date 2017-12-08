@@ -7,11 +7,15 @@ import java.util.*;
 public class Canvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static final DShape noSelection = new DRectangle(0.0, 0.0, 0.0, 0.0);		//dummy shape to point to when there is no selection
 
     private List<DShape> shapeList;
+    private DShape selected = null;
 
 	public Canvas(){
         this(new ArrayList<>());
+        ClickListener cl = new ClickListener();
+        this.addMouseListener(cl);
 	}
 
     public Canvas(List<DShape> shapeList){
@@ -38,11 +42,50 @@ public class Canvas extends JPanel {
         g2.dispose();
     }
     
-    private class ClickListener implements ActionListener{
+    public DShape getSelected(){
+    	return selected;
+    }
+    
+    private class ClickListener implements MouseListener{
+
 		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
+		public void mouseClicked(MouseEvent e) {
+			Iterator<DShape> iterator = shapeList.iterator();
+			boolean found = false;
+			while(iterator.hasNext()){
+				DShape temp = iterator.next();
+				if(temp.contains(e.getX(), e.getY())){
+					selected = temp;
+					System.out.println(selected.getShape() + " is selected!");
+					found = true;
+				}
+			}
+			if(!found){
+				selected = noSelection;
+				System.out.println(selected.getShape() + " is selected!");
+			}
 			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			//System.out.println("Mouse pressed!");
+			//System.out.println(e.getSource());
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			//System.out.println("Mouse released!");
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			//System.out.println("Mouse entered!");
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			//System.out.println("Mouse exited!");
 		}
     }
 
