@@ -30,6 +30,10 @@ class Info {
         this.listeners = new ArrayList<>();
     }
 
+    public String toString() {
+        return "INFO (model) - x:"+this.x+" y:"+this.y+" w:"+this.w+" h:"+h;
+    }
+
     protected Rectangle getBounds() {
         return (new Rectangle(this.x, this.y, this.w, this.h));
     }

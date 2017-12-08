@@ -1,7 +1,6 @@
 import java.awt.Graphics;
 
-public class DText extends DShape{
-	
+public class DText extends DShape{	
 	public DText(){
 		this.setInfo(new TextInfo());
 	}
