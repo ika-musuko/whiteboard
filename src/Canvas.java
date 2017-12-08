@@ -36,10 +36,7 @@ public class Canvas extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
         for (DShape ds : this.shapeList) {
-            //System.out.println("X COORD OF SHAPE: "+ds.getShape().getBounds().getX());
-            g2.fill(ds.getShape());
-            //if(ds == this.selected)
-            	//add code to ADD KNOBS here
+            ds.draw(g2);
         }
         g2.dispose();
     }
@@ -52,22 +49,6 @@ public class Canvas extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			Iterator<DShape> iterator = shapeList.iterator();
-			boolean found = false;
-			while(iterator.hasNext() && !found){
-				DShape temp = iterator.next();
-				if(temp.contains(e.getX(), e.getY())){
-					selected.revertListeners();
-					selected = temp;
-					selected.addListeners();
-					System.out.println(selected.getShape() + " is selected!");
-					found = true;
-				}
-			}
-			if(!found){
-				selected = noSelection;
-				System.out.println("Nothing selected!");
-			}
 			
 		}
 
@@ -91,8 +72,6 @@ public class Canvas extends JPanel {
 		public void mouseExited(MouseEvent e) {
 			//System.out.println("Mouse exited!");
 		}
-    }
-
-	
+    }	
 }
 

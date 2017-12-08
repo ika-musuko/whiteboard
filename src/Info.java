@@ -1,12 +1,13 @@
 import java.awt.Color;
 
 class Info {
-    private double x;
-    private double y;
-    private double w;
-    private double h;
-    private Color color;
-
+    protected double x;
+    protected double y;
+    protected double w;
+    protected double h;
+    protected Color color;
+    protected boolean selected;
+    
     public Info(double x, double y, double w, double h){
         this(Color.GRAY, x, y, w, h);
     }
@@ -17,6 +18,7 @@ class Info {
         this.w = w;
         this.h = h;
         this.color = color;
+        this.selected = false;
     }
 
     public Color getColor() {
@@ -59,6 +61,19 @@ class Info {
         this.h = h; 
     }
     
+   
+    public boolean isSelected(){
+        return this.selected;
+    }
+
+    public void select() {
+        this.selected = true;
+    }
+
+    public void deselect() {
+        this.selected = false;
+    }
+
     public void revertListeners() {
 		
 		

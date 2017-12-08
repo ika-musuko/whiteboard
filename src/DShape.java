@@ -2,7 +2,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public abstract class DShape {
-    protected Shape shape;
     protected Info info;
 
     protected DShape() {
@@ -16,19 +15,19 @@ public abstract class DShape {
     public DShape(double x, double y, double w, double h) {
         this.info = new Info(x, y, w, h);
     }
+ 
+    protected abstract void draw(Graphics g); // override this method to decide how to draw
 
-    public abstract Shape getShape(); // get the actual shape object for drawing on the canvas
-    protected abstract void updateShape(); // internal method for updating the Swing Shape from the Info class
     public Info getInfo() {
         return this.info;
     }
+
+    public void setInfo(Info info) {
+        this.info = info;
+    }
     
     public boolean contains(double x, double y){
-    	if(shape.contains(x, y)){
-    		return true;
-    	}
-    	else
-    		return false;
+    	return shape.contains(x, y);
     }
 
 	public void revertListeners() {
@@ -38,6 +37,4 @@ public abstract class DShape {
 	public void addListeners() {
 		info.addListeners();
 	}
-    
-    
 }
