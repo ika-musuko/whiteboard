@@ -339,8 +339,7 @@ public class ControlPanel extends JPanel {
                 }
             }
         });
-    		
-    		
+
     	return fontBox;
     		
     }
