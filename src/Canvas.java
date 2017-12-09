@@ -35,6 +35,7 @@ public class Canvas extends JPanel implements InfoListener {
                 }
             }
             System.out.println("SELECTED SHAPE: "+selected);
+            refresh();
 		}
 
         @Override
@@ -50,6 +51,7 @@ public class Canvas extends JPanel implements InfoListener {
                     break;
                 }
             }
+            refresh();
 
         }
 
@@ -123,7 +125,7 @@ public class Canvas extends JPanel implements InfoListener {
             }
         });
         
-        this.shapeList.add(ds);
+        this.shapeList.add(0, ds);
         this.select(ds);
         this.refresh();
     }
@@ -149,10 +151,10 @@ public class Canvas extends JPanel implements InfoListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
 
-        for (DShape ds : this.shapeList) {
-            ds.draw(g2);
-            if(ds == this.selected)
-                ds.drawKnobs(g2);
+        for (int i = this.shapeList.size()-1; i >= 0; --i) {
+            this.shapeList.get(i).draw(g2);
+            if(this.shapeList.get(i) == this.selected)
+                this.shapeList.get(i).drawKnobs(g2);
             g2.setClip(null);
         }
         g2.dispose();
@@ -190,7 +192,5 @@ public class Canvas extends JPanel implements InfoListener {
     	}
     	
     } 
-
-
 }
 
