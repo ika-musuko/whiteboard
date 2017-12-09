@@ -89,10 +89,10 @@ public class Canvas extends JPanel implements InfoListener {
         Graphics2D g2 = (Graphics2D) g.create();
 
         for (DShape ds : this.shapeList) {
-            g2.setClip(null);
             ds.draw(g2);
             if(ds == this.selected)
                 ds.drawKnobs(g2);
+            g2.setClip(null);
         }
         g2.dispose();
     }
