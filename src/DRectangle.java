@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 
 public class DRectangle extends DShape {
 	public DRectangle(){
