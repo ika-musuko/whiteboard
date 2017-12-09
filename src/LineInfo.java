@@ -52,19 +52,38 @@ public class LineInfo extends Info {
     
     @Override
     public List<Point> getKnobs() {
-        Rectangle rect = this.getBounds();
-        Point p = rect.getLocation();
-        int px = (int)p.getX();
-        int py = (int)p.getY();
-        int width = (int)rect.getWidth();
-        int height = (int)rect.getHeight();
-        
-        return new ArrayList<Point>(Arrays.asList(
-                new Point(px       , py       )
-               ,new Point(px+width, py       )
-               ,new Point(px       , py+height)
-               ,new Point(px+width, py+height)
-               ));
-        
+        return RectangleUtils.rectPoints(this.getBounds()); 
+    }
+
+    @Override
+    public void move(int x, int y){
+        Rectangle newBounds = this.getBounds();
+        newBounds.setLocation(x-newBounds.width/2, y-newBounds.height/2);
+        List<Point> points = RectangleUtils.rectPoints(newBounds);
+        int p1 = 0, p2 = 3;
+        if (this.x < this.w){
+            if(this.y < this.h){
+                p1 = 0;
+                p2 = 3;
+            }
+            else {
+                p1 = 2;
+                p2 = 1;
+            }
+        }
+        else{
+            if(this.y > this.h){
+                p1 = 3;
+                p2 = 0;
+            }
+            else {
+                p1 = 1;
+                p2 = 2;
+            }
+        }
+        this.setX(points.get(p1).x);
+        this.setY(points.get(p1).y);
+        this.setWidth(points.get(p2).x);
+        this.setHeight(points.get(p2).y);
     }
 }
