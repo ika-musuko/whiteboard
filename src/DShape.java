@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.Point;
+import java.util.ArrayList;
 
 public abstract class DShape implements InfoListener{
     protected Info info; 
@@ -38,4 +39,14 @@ public abstract class DShape implements InfoListener{
     public boolean contains(int x, int y){
     	return info.contains(x, y);
     }
+    
+    public Point getKnob(int x, int y){
+    	for(Point p : this.info.getKnobs()){
+    		Rectangle temp = new Rectangle(p.x-5, p.y-5, 9, 9);
+    		if(temp.contains(x, y))
+    			return p;
+    	}
+    	return null;
+    }
+    
 }
