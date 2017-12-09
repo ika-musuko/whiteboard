@@ -9,7 +9,7 @@ public class Client extends Thread {
 	}
 
 	public Client(Socket client) {
-		
+		this.socket = client;
 	}
 
 }

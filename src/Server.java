@@ -28,7 +28,7 @@ public class Server extends Thread {
 			try{
 				client = serverSocket.accept();
 				clientThread = new Client(client);
-				clientThread.start();
+				//clientThread.start();
 				System.out.println("Connection established from " + client.getInetAddress());
 			} catch (IOException e){
 				System.out.println("Connection failed!");
