@@ -38,6 +38,8 @@ public class Canvas extends JPanel implements InfoListener {
         // init the main canvas mouse click listener
         ClickListener cl = new ClickListener();
         this.addMouseListener(cl);
+        DragListener dl = new DragListener();
+        this.addMouseMotionListener(dl);
         
         // display the canvas
         this.setOpaque(true);
@@ -124,10 +126,31 @@ public class Canvas extends JPanel implements InfoListener {
 	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath() + ".png");
     	}
     	
+    } 
+
+    private class DragListener implements MouseMotionListener{
+        @Override
+        public void mouseDragged(MouseEvent e){ 
+            selected = Canvas.NOSELECTION;
+            System.out.println("mouse: "+e.getX()+" "+e.getY());
+            for(DShape ds : shapeList){
+                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
+                if(ds.contains(e.getX(), e.getY())){
+                    select(ds);
+                    ds.getInfo().move(e.getX(), e.getY());
+                    break;
+                }
+            }
+            System.out.println("SELECTED SHAPE: "+selected);
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e){
+
+        }
     }
 
     private class ClickListener implements MouseListener{
-
 		@Override
 		public void mouseClicked(MouseEvent e) {
             selected = Canvas.NOSELECTION;
@@ -140,8 +163,6 @@ public class Canvas extends JPanel implements InfoListener {
                 }
             }
             System.out.println("SELECTED SHAPE: "+selected);
-            //repaint();
-            //selected.drawKnobs(g);
 		}
 
 		@Override
