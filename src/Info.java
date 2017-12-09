@@ -63,12 +63,7 @@ class Info {
     }
 
     public List<Point> getKnobs() {
-        return new ArrayList<Point>(Arrays.asList(
-                                                  new Point(this.x       , this.y       )
-                                                 ,new Point(this.x+this.w, this.y       )
-                                                 ,new Point(this.x       , this.y+this.h)
-                                                 ,new Point(this.x+this.w, this.y+this.h)
-                                                 ));
+        return RectangleUtils.rectPoints(new Rectangle(this.x, this.y, this.w, this.h));
     }
 
     protected void notifyListeners() {
