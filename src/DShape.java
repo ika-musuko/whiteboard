@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.Point;
 
 public abstract class DShape implements InfoListener{
