@@ -30,12 +30,7 @@ import javax.swing.event.*;
 public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
-		Whiteboard whiteboard = new Whiteboard();
-		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 200));
-		DRectangle dr = new DRectangle(new Info(Color.RED, 50, 50, 100, 200));
-		List<DShape> list = new ArrayList<DShape>();
-		list.add(de);
-		list.add(dr);
+		Whiteboard whiteboard = new Whiteboard();;
 	}
 	
 	private static final long serialVersionUID = 1L;
