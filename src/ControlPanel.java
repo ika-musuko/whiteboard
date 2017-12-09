@@ -307,7 +307,7 @@ public class ControlPanel extends JPanel {
     	GraphicsEnvironment graphE = GraphicsEnvironment.getLocalGraphicsEnvironment();
     	Font [] fontList = graphE.getAllFonts();
     	
-    	JComboBox fontBox = new JComboBox(fontList);
+    	JComboBox<Font> fontBox = new JComboBox<Font>(fontList);
     	fontBox.setRenderer(new DefaultListCellRenderer() {
    
 			private static final long serialVersionUID = 1L;
