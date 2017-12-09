@@ -3,9 +3,9 @@ model (Info Classes)      done
 DEllipse(oval)            done
 DRectangle                done
 Selection                 done
-Listeners                 hooked the text inspector
+Listeners                 done
 SetColor                  done
-Moving                    done except for DLine 
+Moving                    done 
 Knob Drawing              done
 Knob Resizing             
 Delete Shape              
