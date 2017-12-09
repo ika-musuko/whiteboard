@@ -144,6 +144,10 @@ public class Canvas extends JPanel implements InfoListener {
             //selected.drawKnobs(g);
 		}
 
+		public void mouseDragged(MouseEvent e){
+			
+		}
+		
 		@Override
 		public void mousePressed(MouseEvent e) {
 			//System.out.println("Mouse pressed!");

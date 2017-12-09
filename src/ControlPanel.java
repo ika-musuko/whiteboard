@@ -21,8 +21,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -266,6 +268,26 @@ public class ControlPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//start a server to display the contents of the whiteboard to a client over the network
+				JFrame frame = new JFrame();
+			    String message = "Enter IP and port number you want to use (default is 39587):";
+			    String text = JOptionPane.showInputDialog(frame, message);
+			    if (text == null) {
+			      //do nothing
+			    	System.out.println("Cancelled");
+			    } else {
+			    	Server server;
+			    	try{
+			    		server = new Server(Integer.parseInt(text));
+			    	} catch (NumberFormatException numEx) {
+			    		server = new Server();
+			    	}
+			    	server.start();
+			    	System.out.println("Server initiated.");	
+			    }
+
+				
+				
+				
 			}
 		});
 		startClientButton.addActionListener(new ActionListener(){
