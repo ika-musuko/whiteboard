@@ -165,19 +165,19 @@ public class ControlPanel extends JPanel {
 		sendToFront.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//update the text on the selected canvas shape every time the text box is changed
+				whiteboard.getCanvas().sendToFront();
 			}
 		});
 		sendToBack.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//update the text on the selected canvas shape every time the text box is changed
+                whiteboard.getCanvas().sendToBack();
 			}
 		});
 		removeButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//update the text on the selected canvas shape every time the text box is changed
+                whiteboard.getCanvas().removeSelected();
 			}
 		});
 		

@@ -8,8 +8,8 @@ SetColor                  done
 Moving                    done 
 Knob Drawing              done
 Knob Resizing             
-Delete Shape              
-Move Front/Back
+Delete Shape              done
+Move Front/Back           done
 DLine                     done
 DText                     done
 Text Inspector            no font editor

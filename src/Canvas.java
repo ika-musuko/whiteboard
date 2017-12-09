@@ -140,8 +140,7 @@ public class Canvas extends JPanel implements InfoListener {
         repaint();
     }
 
-    public void resetArray()
-    {
+    public void resetArray(){
     	shapeList = new ArrayList<DShape>();
         this.refresh();
     }
@@ -160,8 +159,41 @@ public class Canvas extends JPanel implements InfoListener {
         g2.dispose();
     }
     
-    public List<DShape> getShapeList()
-    {
+    // swap two DShapes in the shapelist via index
+    private void shapeSwap(int i, int j) {
+        DShape temp = this.shapeList.get(i);
+        this.shapeList.set(i, this.shapeList.get(j));
+        this.shapeList.set(j, temp);
+    }
+    
+    private int selectedIndex(){
+        if(this.selected == Canvas.NOSELECTION) return -1;
+        return this.shapeList.indexOf(this.selected);
+    }
+    
+    public void sendToBack(){
+        int si = this.selectedIndex();
+        if(si == -1 || si >= this.shapeList.size()-1) return;
+        this.shapeSwap(si, si+1);
+        this.refresh();
+    }
+    
+    public void sendToFront(){
+        int si = this.selectedIndex();
+        if(si <= 0) return;
+        this.shapeSwap(si, si-1);
+        this.refresh();
+    }
+    
+    public void removeSelected(){
+        if(this.selected != Canvas.NOSELECTION) {
+            this.shapeList.remove(this.selected);
+            this.selected = Canvas.NOSELECTION;
+            this.refresh();
+        }        
+    }
+    
+    public List<DShape> getShapeList(){
     	return shapeList;
     }
     
@@ -169,8 +201,7 @@ public class Canvas extends JPanel implements InfoListener {
     	return selected;
     }
  
-    public void saveToPNG()
-    {
+    public void saveToPNG(){
     	JFileChooser chooser = new JFileChooser();
     	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
     	int returnVal = chooser.showSaveDialog(null);
