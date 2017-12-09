@@ -18,6 +18,67 @@ public class Canvas extends JPanel implements InfoListener {
     private List<InfoListener> selectedListeners;
     private Whiteboard whiteboard;
     private DShape selected;
+    private DShape dragged;
+
+    private class ClickListener implements MouseListener, MouseMotionListener {
+		
+        // mouseClicked selects a Shape
+        @Override
+		public void mouseClicked(MouseEvent e) {
+            selected = Canvas.NOSELECTION;
+            System.out.println("mouse: "+e.getX()+" "+e.getY());
+            for(DShape ds : shapeList){
+                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
+                if(ds.contains(e.getX(), e.getY())){
+                    select(ds);
+                    break;
+                }
+            }
+            System.out.println("SELECTED SHAPE: "+selected);
+		}
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            if(dragged != Canvas.NOSELECTION){
+                dragged.getInfo().move(e.getX(), e.getY()); 
+                return;
+            }
+            for(DShape ds : shapeList){
+                if(ds.contains(e.getX(), e.getY())){
+                    select(ds);
+                    dragged = ds;
+                    break;
+                }
+            }
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e){
+
+        }
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			//System.out.println("Mouse pressed!");
+			//System.out.println(e.getSource());
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			dragged = Canvas.NOSELECTION;
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			//System.out.println("Mouse entered!");
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			//System.out.println("Mouse exited!");
+		}
+    }
 
     // InfoListener implement
     public void infoChanged(Info info){
@@ -34,12 +95,12 @@ public class Canvas extends JPanel implements InfoListener {
         this.shapeList = shapeList;
         this.selectedListeners = new ArrayList<>();
         this.selected = Canvas.NOSELECTION; 
+        this.dragged = Canvas.NOSELECTION;
         
         // init the main canvas mouse click listener
         ClickListener cl = new ClickListener();
         this.addMouseListener(cl);
-        DragListener dl = new DragListener();
-        this.addMouseMotionListener(dl);
+        this.addMouseMotionListener(cl);
         
         // display the canvas
         this.setOpaque(true);
@@ -130,63 +191,6 @@ public class Canvas extends JPanel implements InfoListener {
     	
     } 
 
-    private class DragListener implements MouseMotionListener{
-        @Override
-        public void mouseDragged(MouseEvent e){ 
-            selected = Canvas.NOSELECTION;
-            System.out.println("mouse: "+e.getX()+" "+e.getY());
-            for(DShape ds : shapeList){
-                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
-                if(ds.contains(e.getX(), e.getY())){
-                    select(ds);
-                    ds.getInfo().move(e.getX(), e.getY());
-                    break;
-                }
-            }
-            System.out.println("SELECTED SHAPE: "+selected);
-        }
 
-        @Override
-        public void mouseMoved(MouseEvent e){
-
-        }
-    }
-
-    private class ClickListener implements MouseListener{
-		@Override
-		public void mouseClicked(MouseEvent e) {
-            selected = Canvas.NOSELECTION;
-            System.out.println("mouse: "+e.getX()+" "+e.getY());
-            for(DShape ds : shapeList){
-                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
-                if(ds.contains(e.getX(), e.getY())){
-                    select(ds);
-                    break;
-                }
-            }
-            System.out.println("SELECTED SHAPE: "+selected);
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			//System.out.println("Mouse pressed!");
-			//System.out.println(e.getSource());
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			//System.out.println("Mouse released!");
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			//System.out.println("Mouse entered!");
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			//System.out.println("Mouse exited!");
-		}
-    }	
 }
 
