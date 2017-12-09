@@ -14,7 +14,7 @@ public class DText extends DShape{
 		TextInfo ti = (TextInfo)this.info;
 		g.setColor(this.info.getColor());
         g.setFont(ti.getFont());
-        g.setClip(ti.getX(), ti.getY(), ti.getWidth(), ti.getHeight()*3/2);
+        g.setClip(ti.getX()-4, ti.getY()-4, ti.getWidth()+9, ti.getHeight()+20);
         g.drawString(ti.getText(), ti.getX(), ti.getY()+ti.getHeight());
 	}
 }
