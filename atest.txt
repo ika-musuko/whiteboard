@@ -1,0 +1,3 @@
+Text #99FF66 10 10 200 75 "Default" "Arial" 
+Rectangle #FFFF66 10 10 100 100
+Text #0000FF 10 10 200 75 "WHITEBOARD BOYS" "Arial" 
