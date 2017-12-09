@@ -87,7 +87,9 @@ public class Canvas extends JPanel implements InfoListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g.create();
+
         for (DShape ds : this.shapeList) {
+            g2.setClip(null);
             ds.draw(g2);
             if(ds == this.selected)
                 ds.drawKnobs(g2);
