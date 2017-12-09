@@ -1,16 +1,25 @@
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.event.*;
 
 public class ControlPanel extends JPanel {
@@ -94,12 +103,16 @@ public class ControlPanel extends JPanel {
 		editTextPanel.setVisible(true);
 		
 		JLabel preEditText = new JLabel("Edit Text:");
-        
+		JComboBox<Font> fontBox = fontMenu();
+		
+		
+		
         // configure text editor
-		textEditor.setColumns(30);				//***********TO ADD: font dropdown selection
+		textEditor.setColumns(30);			
 		
 		editTextPanel.add(preEditText);
 		editTextPanel.add(textEditor);
+		editTextPanel.add(fontBox);
 		
 		//*************listeners************
         // update the text based on the selected shape's model
@@ -287,5 +300,64 @@ public class ControlPanel extends JPanel {
     	Color color = JColorChooser.showDialog(this, "Choose a color", Color.BLUE);
     	this.whiteboard.getCanvas().getSelected().info.setColor(color);
     	this.whiteboard.getCanvas().refresh(); //change this to method ?
+    }
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public JComboBox<Font> fontMenu()
+    {
+    	JComboBox fontBox = new JComboBox();
+    	fontBox.setEditable(false);
+    	Font [] fontList = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+    	for(int i = 0; i < fontList.length; i++)
+    	{
+ 
+    		fontBox.addItem(fontList[i]);
+    	}
+    	
+    	ComboBoxRenderer fontRenderer = new ComboBoxRenderer();
+    	fontRenderer.setPreferredSize(new Dimension(100, 12));
+    	fontBox.setRenderer(fontRenderer);
+    	
+    	/*fontMenu.setRenderer(new DefaultListCellRenderer() {
+   
+			private static final long serialVersionUID = 1L;
+
+			@Override
+    		   public Component getListCellRendererComponent(JList<?> list,
+    		         Object value, int index, boolean isSelected, boolean cellHasFocus) {
+    		      if (value != null) {
+    		         Font font = (Font) value;
+    		         value = font.getName();
+    		      }
+    		      return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    		   }
+    		});
+    		*/
+    		
+    		return fontBox;
+    		
+    }
+    
+    // combo box needs a renderer to display each item in its menu
+    class ComboBoxRenderer extends JLabel implements ListCellRenderer
+    {
+		private static final long serialVersionUID = 1L;
+
+		private Font baseFont = new JLabel("Text").getFont();
+		
+		// this method returns a componenet whose paintCompononet method is used to display combo box
+		@Override
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+
+			if(value != null)
+			{
+				 Font font = (Font) value;
+		         value = font.getName();
+		         setFont(font);
+			}
+			return this;
+		}
+    	
     }
 }
