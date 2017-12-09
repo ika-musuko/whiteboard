@@ -95,6 +95,10 @@ class Info {
         this.setX(x-this.w/2);
         this.setY(y-this.h/2);
     }
+    
+    public void resize(Point p, int x, int y){
+    	
+    }
 
     public void setWidth(int w) {
         this.w = w;
