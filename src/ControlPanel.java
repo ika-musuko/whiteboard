@@ -26,10 +26,15 @@ public class ControlPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
     private Whiteboard whiteboard;
     private JTextField textEditor;
+    private JComboBox fontBox;
 
     public void enableText(String s){
+        // enable the text editor and set it to the string
         this.textEditor.setEnabled(true);
         this.textEditor.setText(s);
+        
+        // enable the font box and set it to the font
+        this.fontBox.setEnabled(true);
     }
 
     public void disableText(){
@@ -102,9 +107,7 @@ public class ControlPanel extends JPanel {
 		editTextPanel.setVisible(true);
 		
 		JLabel preEditText = new JLabel("Edit Text:");
-		JComboBox fontBox = fontMenu();
-		
-		
+		this.fontBox = fontMenu();
 		
         // configure text editor
 		textEditor.setColumns(30);			
@@ -278,10 +281,6 @@ public class ControlPanel extends JPanel {
 			    	server.start();
 			    	System.out.println("Server initiated.");	
 			    }
-
-				
-				
-				
 			}
 		});
 		startClientButton.addActionListener(new ActionListener(){
@@ -340,8 +339,6 @@ public class ControlPanel extends JPanel {
             }
         });
 
-    	return fontBox;
-    		
+    	return fontBox;  		
     }
- 
 }
