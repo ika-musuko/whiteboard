@@ -102,7 +102,7 @@ public class ControlPanel extends JPanel {
 		editTextPanel.setVisible(true);
 		
 		JLabel preEditText = new JLabel("Edit Text:");
-		JComboBox fontBox = fontMenu();
+		JComboBox<Font> fontBox = fontMenu();
 		
 		
 		
@@ -308,7 +308,7 @@ public class ControlPanel extends JPanel {
     	GraphicsEnvironment graphE = GraphicsEnvironment.getLocalGraphicsEnvironment();
     	Font [] fontList = graphE.getAllFonts();
     	
-    	JComboBox fontBox = new JComboBox(fontList);
+    	JComboBox<Font> fontBox = new JComboBox<Font>(fontList);
     	fontBox.setRenderer(new DefaultListCellRenderer() {
    
 			private static final long serialVersionUID = 1L;
