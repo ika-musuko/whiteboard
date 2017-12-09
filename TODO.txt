@@ -5,7 +5,7 @@ DRectangle                done
 Selection                 done
 Listeners                 hooked the text inspector
 SetColor                  done
-Moving                    
+Moving                    done except for DLine 
 Knob Drawing              done
 Knob Resizing             
 Delete Shape              
