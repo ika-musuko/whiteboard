@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.Point;
 
 public abstract class DShape implements InfoListener{
@@ -14,15 +13,17 @@ public abstract class DShape implements InfoListener{
         }
     }
 
+    // InfoListener
+    @Override
+    public void infoChanged(Info info){
+        this.setInfo(info);
+    }
+
     public DShape(){
     	this.setInfo(new Info());
     }
     
     public DShape(Info info) {
-        this.setInfo(info);
-    }
-
-    public void infoChanged(Info info){
         this.setInfo(info);
     }
     

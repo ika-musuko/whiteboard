@@ -91,6 +91,11 @@ class Info {
         this.notifyListeners();
     }
 
+    public void move(int x, int y){
+        this.setX(x-this.w/2);
+        this.setY(y-this.h/2);
+    }
+
     public void setWidth(int w) {
         this.w = w;
         this.notifyListeners();

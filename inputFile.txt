@@ -1,4 +1,4 @@
 Rectangle #FF0000 150 250 150 200
-Ellipse #FF0000 150 250 90 80
+Ellipse #FF0000 10 150 90 80
 Line #00FF00 5 5 200 30
-Text #FFFF00 10 100 500 50 "WhiteBoard Boys" Arial
+Text #FFFF00 10 100 500 50 "WhiteBoard Boys" "Arial"

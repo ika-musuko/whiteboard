@@ -1,41 +1,20 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.PrintWriter;
 
 import javax.swing.JFileChooser;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.event.*;
 
 public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
-		Whiteboard whiteboard = new Whiteboard();
-		DEllipse de = new DEllipse(new Info(Color.RED, 50, 50, 100, 200));
-		DRectangle dr = new DRectangle(new Info(Color.RED, 50, 50, 100, 200));
-		List<DShape> list = new ArrayList<DShape>();
-		list.add(de);
-		list.add(dr);
+		Whiteboard whiteboard = new Whiteboard();;
 	}
 	
 	private static final long serialVersionUID = 1L;
