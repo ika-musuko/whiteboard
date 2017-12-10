@@ -13,3 +13,4 @@ Rectangle #FF3399 95 -27 100 100
 Rectangle #808080 -5 -27 100 100
 Text #00FF00 163 165 200 75 "boys" "Comic Sans MS" 
 Text #3366FF 12 80 200 75 "font" "Lucida Console" 
+Line #4422FF 100 220 24 100

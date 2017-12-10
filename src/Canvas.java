@@ -23,11 +23,10 @@ public class Canvas extends JPanel implements InfoListener {
     };	
 	
     private List<DShape> shapeList;
-    private List<InfoListener> selectedListeners;
-    private List<CanvasListener> canvasListeners;
-    private Whiteboard whiteboard;
     private DShape selected;
     private DShape dragged;
+
+    private Whiteboard whiteboard;
 
     private class ClickListener implements MouseListener, MouseMotionListener {
 		
@@ -105,7 +104,6 @@ public class Canvas extends JPanel implements InfoListener {
         // init the fields
         this.whiteboard = whiteboard;
         this.shapeList = shapeList;
-        this.selectedListeners = new ArrayList<>();
         this.select(Canvas.NOSELECTION); 
         this.dragged = Canvas.NOSELECTION;
         
@@ -125,7 +123,6 @@ public class Canvas extends JPanel implements InfoListener {
     public void verifyText() {
        if(this.selected != null && this.selected.getInfo() instanceof TextInfo) {
            TextInfo ti = (TextInfo)this.selected.getInfo();
-           System.out.println(ti.getFont());
            this.whiteboard.getControlPanel().enableText(ti.getText(), ti.getFont().getFontName());
        }
        else
