@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import java.util.List;
 import java.util.*;
 
-public class Canvas extends JPanel {
+public class Canvas extends JPanel implements CanvasListener{
 
 	private static final long serialVersionUID = 1L;
     
@@ -30,21 +30,29 @@ public class Canvas extends JPanel {
 
     private Whiteboard whiteboard;
 
+    // CanvasListener implement
+    // potential way for canvas objects to listen to each other???
+    @Override
+    public void canvasChanged(List<DShape> shapeList) {
+        this.shapeList = shapeList;
+        this.refresh();
+    }
+    
     private class ClickListener implements MouseListener, MouseMotionListener {
-		
+		// tries to select a DShape or returns NOSELECTION if there is no selection
+        private DShape trySelect(MouseEvent e){
+            for(DShape ds : shapeList){
+                if(ds.contains(e.getX(), e.getY())){
+                    return ds;             
+                }
+            }
+            return Canvas.NOSELECTION;
+        }
+        
         // mouseClicked selects a Shape
         @Override
 		public void mouseClicked(MouseEvent e) {
-            select(Canvas.NOSELECTION);
-            System.out.println("mouse: "+e.getX()+" "+e.getY());
-            for(DShape ds : shapeList){
-                //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
-                if(ds.contains(e.getX(), e.getY())){
-                    select(ds);
-                    break;
-                }
-            }
-            System.out.println("SELECTED SHAPE: "+selected);
+            select(this.trySelect(e));
             refresh();
 		}
 
@@ -62,7 +70,6 @@ public class Canvas extends JPanel {
                 }
             }
             refresh();
-
         }
 
         @Override
