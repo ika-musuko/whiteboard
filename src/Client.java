@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Client extends Thread {
@@ -12,4 +14,8 @@ public class Client extends Thread {
 		this.socket = client;
 	}
 
+	public Client(int port){
+		socket = new Socket();
+	}
+	
 }

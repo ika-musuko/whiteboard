@@ -36,7 +36,7 @@ public class Server extends Thread implements CanvasListener {
 				
 				ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
 				ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-				out.writeObject(arg0);
+				//out.writeObject(arg0);
 				
 			} catch (IOException e){
 				System.out.println("Connection failed!");

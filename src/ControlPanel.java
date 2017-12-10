@@ -326,6 +326,22 @@ public class ControlPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//start a client to see the contents of a whiteboard that is in server mode
+				JFrame frame = new JFrame();
+			    String message = "Enter the port number you want to use (default is 39587):";
+			    String text = JOptionPane.showInputDialog(frame, message);
+			    if (text == null) {
+			      //do nothing
+			    	System.out.println("Cancelled");
+			    } else {
+			    	Client client;
+			    	try{
+			    		client = new Client(Integer.parseInt(text));
+			    	} catch (NumberFormatException numEx) {
+			    		client = new Client();
+			    	}
+			    	client.start();
+			    	System.out.println("Server initiated.");	
+			    }
 			}
 		});
 		
