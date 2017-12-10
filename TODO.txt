@@ -13,7 +13,7 @@ Move Front/Back           done
 DLine                     done
 DText                     done
 Text Inspector            done
-Status Table
+Status Table              done
 File Saving               done
 File Opening              done
 Save as PNG               done
