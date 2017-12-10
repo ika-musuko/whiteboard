@@ -25,6 +25,8 @@ public class Canvas extends JPanel implements InfoListener {
     private List<DShape> shapeList;
     private DShape selected;
     private DShape dragged;
+    
+    private List<CanvasListener> canvasListeners;
 
     private Whiteboard whiteboard;
 
@@ -112,11 +114,32 @@ public class Canvas extends JPanel implements InfoListener {
         this.addMouseListener(cl);
         this.addMouseMotionListener(cl);
         
+        // init the canvas listeners
+        this.canvasListeners = new ArrayList<>();
+        this.addCanvasListener(this.whiteboard.getStatusTable());
+        
         // display the canvas
         this.setOpaque(true);
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
         this.refresh();
+    }
+    
+    // canvas listener methods and shapelist editing
+    public void addCanvasListener(CanvasListener cl){
+        this.canvasListeners.add(cl);
+    }
+    
+    private void notifyCanvasListeners() {
+        for(CanvasListener cl : this.canvasListeners){
+            cl.canvasChanged(this.shapeList);
+        }
+    }
+
+    public void refresh() {
+        this.notifyCanvasListeners();
+        this.revalidate();
+        this.repaint();
     }
 
     // verifies if the currently selected DShape's info is a TextInfo or not, enables/disables the appropriate boxes, and synchronizes their fields
@@ -129,6 +152,7 @@ public class Canvas extends JPanel implements InfoListener {
             this.whiteboard.getControlPanel().disableText();
     }
 
+    // adds a shape to the canvas
     public void addShape(DShape ds) {
         ds.getInfo().addListener(new InfoListener() {
             public void infoChanged(Info info){
@@ -144,11 +168,6 @@ public class Canvas extends JPanel implements InfoListener {
     private void select(DShape ds) {
         this.selected = ds;
         this.verifyText();
-    }
-
-    public void refresh() {
-        revalidate();
-        repaint();
     }
 
     public void resetArray(){
