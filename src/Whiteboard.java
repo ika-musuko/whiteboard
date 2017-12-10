@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 public class Whiteboard extends JFrame {
 
 	public static void main(String[] args){
-		Whiteboard whiteboard = new Whiteboard();;
+		Whiteboard whiteboard = new Whiteboard();
+		Whiteboard whiteboard2 = new Whiteboard();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -67,6 +68,46 @@ public class Whiteboard extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	public String whiteboardToString()
+    {
+    
+		StringBuilder out = new StringBuilder();
+		for (int i = this.canvas.getShapeList().size()-1; i >= 0; --i)
+		{
+	        DShape shape = this.canvas.getShapeList().get(i);
+			String text = "";
+			
+			if(shape instanceof DRectangle)
+			{
+				text += "Rectangle ";
+			}
+			else if(shape instanceof DEllipse)
+			{
+				text += "Ellipse ";
+			}
+			else if(shape instanceof DLine)
+			{
+				text += "Line ";
+			}
+			else if(shape instanceof DText)
+			{
+				text += "Text ";
+			}
+			
+			text += ("#" + Integer.toHexString(shape.getInfo().getColor().getRGB()).substring(2).toUpperCase() + " ");
+			text += shape.getInfo().getX() + " " + shape.getInfo().getY() + " " + shape.getInfo().getWidth() + " " + shape.getInfo().getHeight();
+			
+			if(shape instanceof DText)
+			{
+				text += (" " + '"' + ((TextInfo) shape.getInfo()).getText() + '"' + " ");
+				text += ('"' + ((TextInfo) shape.getInfo()).getFontName() + '"' + " ");	
+			}
+			out.append(text);
+		}
+		return out.toString();
+    		
+    }
+	
     public void fileSaver()
     {
     	JFileChooser chooser = new JFileChooser();

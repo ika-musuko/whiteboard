@@ -1,7 +1,10 @@
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.List;
 
-public class Server extends Thread {
+public class Server extends Thread implements CanvasListener {
 
 	ServerSocket serverSocket = null;
 	
@@ -30,11 +33,22 @@ public class Server extends Thread {
 				clientThread = new Client(client);
 				//clientThread.start();
 				System.out.println("Connection established from " + client.getInetAddress());
+				
+				ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
+				ObjectInputStream in = new ObjectInputStream(client.getInputStream());
+				out.writeObject(arg0);
+				
 			} catch (IOException e){
 				System.out.println("Connection failed!");
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public void canvasChanged(List<DShape> shapeList) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
