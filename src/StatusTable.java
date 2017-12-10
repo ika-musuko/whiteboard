@@ -18,8 +18,8 @@ public class StatusTable extends JPanel implements CanvasListener {
     
     public StatusTable(Whiteboard whiteboard){
 		this.setLayout(new BorderLayout());
-	    this.table = new JTable(new DefaultTableModel(null, new Object[]{"x", "y", "width", "height"}));
-        ((DefaultTableModel)this.table.getModel()).setColumnCount(4);
+	    this.table = new JTable(new DefaultTableModel(null, new Object[]{"x", "y", "width", "height", "color"}));
+        ((DefaultTableModel)this.table.getModel()).setColumnCount(5);
 	    this.table.setEnabled(false);
 	    this.table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 	    JScrollPane sp = new JScrollPane(this.table);
@@ -30,7 +30,6 @@ public class StatusTable extends JPanel implements CanvasListener {
     }
     
     private void updateContents(List<DShape> shapeList) {
-        System.out.println("UPDATING TABLE");
         ((DefaultTableModel)this.table.getModel()).setRowCount(shapeList.size());   
         for (int i = 0; i < shapeList.size(); ++i) {
             DShape ds = shapeList.get(i);
@@ -38,6 +37,8 @@ public class StatusTable extends JPanel implements CanvasListener {
             this.table.getModel().setValueAt(ds.getInfo().getY(), i, 1);
             this.table.getModel().setValueAt(ds.getInfo().getWidth(), i, 2);
             this.table.getModel().setValueAt(ds.getInfo().getHeight(), i, 3);
+            Color color = ds.getInfo().getColor();
+            this.table.getModel().setValueAt("R: "+color.getRed()+", G: "+color.getGreen()+", B: "+color.getBlue(), i, 4);
         }
     }
 }
