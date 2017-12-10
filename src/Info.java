@@ -13,6 +13,7 @@ class Info {
     protected Color color;
     protected List<InfoListener> listeners;
 
+    
     public Info() {
         this(10, 10, 100, 100);
     }
@@ -22,12 +23,21 @@ class Info {
     }
 
     public Info(Color color, int x, int y, int w, int h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.color = color;
+        this.x         = x;
+        this.y         = y;
+        this.w         = w;
+        this.h         = h;
+        this.color     = color;
         this.listeners = new ArrayList<>();
+    }
+    
+    public Info(Info i) {
+        this.x         = i.x;
+        this.y         = i.y;
+        this.w         = i.w;
+        this.h         = i.h;
+        this.color     = new Color(i.color.getRGB());
+        this.listeners = new ArrayList<>(i.listeners);   
     }
 
     public String toString() {

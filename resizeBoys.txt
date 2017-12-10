@@ -1,0 +1,15 @@
+Text #0000FF 54 -18 795 408 "resize" "Haettenschweiler" 
+Ellipse #FF0033 351 409 214 220
+Rectangle #FF0033 60 342 790 34
+Ellipse #FFFF66 384 436 149 163
+Text #0000FF 219 439 113 170 "B" "Arial" 
+Text #0000FF 586 448 98 149 "Y" "Arial" 
+Rectangle #0000FF 82 452 51 51
+Rectangle #FF0000 143 452 50 51
+Rectangle #0000FF 143 512 51 51
+Rectangle #FF0000 83 510 50 51
+Rectangle #0000FF 756 452 51 51
+Rectangle #0000FF 700 509 51 51
+Rectangle #FF0000 700 452 50 51
+Rectangle #FF0000 757 509 50 51
+Text #FFFF66 65 342 780 33 "dupe it up dupe it up dupe it up dupe it up dupe it up " "Bauhaus 93" 

@@ -4,28 +4,24 @@ import java.util.ArrayList;
 
 public abstract class DShape implements InfoListener{
     protected Info info; 
-    protected abstract void draw(Graphics g); // override this method to decide how to draw
     protected static final int KNOB_SIZE = 18;
-
-    public void drawKnobs(Graphics g) {
-        for (Point p : this.info.getKnobs()){
-            g.setColor(Color.BLACK);
-            g.fillRect(p.x-(KNOB_SIZE/2), p.y-(KNOB_SIZE/2), KNOB_SIZE, KNOB_SIZE); // why
-        }
-    }
-
-    // InfoListener
+    
+    // InfoListener implement
     @Override
-    public void infoChanged(Info info){
+    public void infoChanged(Info info) {
         this.setInfo(info);
     }
-
-    public DShape(){
+    
+    protected DShape() {
     	this.setInfo(new Info());
     }
     
-    public DShape(Info info) {
+    protected DShape(Info info) {
         this.setInfo(info);
+    }
+    
+    protected DShape(DShape ds) {
+        this.info = new Info(ds.info);
     }
     
     public Info getInfo() {
@@ -49,4 +45,14 @@ public abstract class DShape implements InfoListener{
     	}
     	return Canvas.NOANCHOR;
     }
+    
+    public void drawKnobs(Graphics g) {
+        for (Point p : this.info.getKnobs()){
+            g.setColor(Color.BLACK);
+            g.fillRect(p.x-(KNOB_SIZE/2), p.y-(KNOB_SIZE/2), KNOB_SIZE, KNOB_SIZE); // why
+        }
+    }
+    
+    protected abstract void draw(Graphics g); // override this method to decide how to draw
+    public abstract DShape copy();         // copy objects
 }

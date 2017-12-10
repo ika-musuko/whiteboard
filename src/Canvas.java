@@ -20,6 +20,11 @@ public class Canvas extends JPanel implements CanvasListener{
         protected void draw(Graphics g){
             // dummy shapes don't draw anything!
         }
+        
+        @Override
+        public DShape copy(){
+            return null;
+        }
     };	
 	
     private List<DShape> shapeList;
@@ -186,6 +191,10 @@ public class Canvas extends JPanel implements CanvasListener{
         this.shapeList.add(0, ds);
         this.select(ds);
         this.refresh();
+    }
+    
+    public void duplicateCurrent() {
+        this.addShape(this.selected.copy());
     }
 
     private void select(DShape ds) {

@@ -31,6 +31,7 @@ public class ControlPanel extends JPanel {
     private JButton setColorButton;
     private JButton sendToFront   ;
     private JButton sendToBack    ;
+    private JButton duplicate     ;
     private JButton removeButton  ;
 
     // enables text editing fields and sets them to the parameters
@@ -59,6 +60,7 @@ public class ControlPanel extends JPanel {
         this.setColorButton.setEnabled(true);
         this.sendToFront.setEnabled   (true);  
         this.sendToBack.setEnabled    (true);   
+        this.duplicate.setEnabled     (true);   
         this.removeButton.setEnabled  (true); 
     }
 
@@ -67,6 +69,7 @@ public class ControlPanel extends JPanel {
         this.setColorButton.setEnabled(false);
         this.sendToFront.setEnabled   (false);  
         this.sendToBack.setEnabled    (false);   
+        this.duplicate.setEnabled     (false);   
         this.removeButton.setEnabled  (false); 
     }
     
@@ -197,11 +200,13 @@ public class ControlPanel extends JPanel {
 		JLabel editShapeText = new JLabel("Edit Selected Shape:");
 		this.sendToFront  = new JButton("Move Front");
 		this.sendToBack   = new JButton("Move Back");
+		this.duplicate    = new JButton("Duplicate");
 		this.removeButton = new JButton("Remove");
 		
 		editShapePanel.add(editShapeText);
 		editShapePanel.add(sendToFront);
 		editShapePanel.add(sendToBack);
+		editShapePanel.add(duplicate);
 		editShapePanel.add(removeButton);
 		
 		//*************listeners***************
@@ -215,6 +220,12 @@ public class ControlPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
                 whiteboard.getCanvas().sendToBack();
+			}
+		});
+        duplicate.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+                whiteboard.getCanvas().duplicateCurrent();
 			}
 		});
 		removeButton.addActionListener(new ActionListener(){

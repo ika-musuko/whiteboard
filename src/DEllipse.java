@@ -9,7 +9,12 @@ public class DEllipse extends DShape {
 	public DEllipse(Info info){
 		super(info);
 	}
-	
+    
+    @Override
+    public DShape copy() {
+        return new DEllipse(new Info(this.info));
+    }
+   
     public void draw(Graphics g) {
         g.setColor(this.info.getColor());
         g.setClip(this.info.getBounds());

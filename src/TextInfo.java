@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 class TextInfo extends Info {
     private String font;
@@ -18,6 +19,17 @@ class TextInfo extends Info {
         this(text, "Arial", Color.GRAY, x, y, w, h);
     }
 
+    public TextInfo(TextInfo i) {
+        this.x         = i.x;
+        this.y         = i.y;
+        this.w         = i.w;
+        this.h         = i.h;
+        this.color     = new Color(i.color.getRGB());
+        this.listeners = new ArrayList<>(i.listeners);  
+        this.font      = new String(i.font);
+        this.text      = new String(i.text);
+    }    
+ 
     public String getText() {
         return this.text;
     }

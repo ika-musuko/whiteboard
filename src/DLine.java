@@ -8,6 +8,11 @@ public class DLine extends DShape {
 	public DLine(LineInfo info){
 		super(info);
 	}
+    
+    @Override
+    public DShape copy() {
+        return new DLine(new LineInfo((LineInfo)this.info));
+    }
 	
     public void draw(Graphics g) {
         g.setColor(this.info.getColor());

@@ -18,6 +18,15 @@ public class LineInfo extends Info {
     public LineInfo(Color color, int x1, int y1, int x2, int y2){
         super(color, x1, y1, x2, y2);
     }
+    
+    public LineInfo(LineInfo i) {
+        this.x         = i.x;
+        this.y         = i.y;
+        this.w         = i.w;
+        this.h         = i.h;
+        this.color     = new Color(i.color.getRGB());
+        this.listeners = new ArrayList<>(i.listeners);   
+    }
 
     // for cases 1 and 3
     private Rectangle downwardSlope(int x1, int y1, int x2, int y2){

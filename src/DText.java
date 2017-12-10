@@ -8,6 +8,11 @@ public class DText extends DShape{
 	public DText(TextInfo info){
 		super(info);
 	}
+    
+    @Override
+    public DShape copy() {
+        return new DText(new TextInfo((TextInfo)this.info));
+    }
 	
 	@Override
 	protected void draw(Graphics g) {
