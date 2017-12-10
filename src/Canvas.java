@@ -28,7 +28,7 @@ public class Canvas extends JPanel implements CanvasListener{
     
     private boolean resizing;
     private Point anchorKnob;
-    private static final NOANCHOR = new Point(-10000, -10000);
+    public static final Point NOANCHOR = new Point(-10000, -10000);
     
     private List<CanvasListener> canvasListeners;
 

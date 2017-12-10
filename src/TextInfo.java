@@ -31,7 +31,7 @@ class TextInfo extends Info {
     }
     
     @Override
-    public Rectangle getRect() {
+    public Rectangle getBounds() {
         return new Rectangle(this.getX()-4, this.getY()-4, this.getWidth()+9, this.getHeight()+9);
     }
 

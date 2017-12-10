@@ -35,7 +35,7 @@ class Info {
     }
 
     protected Rectangle getBounds() {
-        return this.getRect();
+        return (new Rectangle(this.x, this.y, this.w, this.h));
     }
 
     public boolean contains(int x, int y){
@@ -63,11 +63,7 @@ class Info {
     }
 
     public List<Point> getKnobs() {
-        return RectangleUtils.rectPoints(this.getRect());
-    }
-    
-    public Rectangle getRect() {
-        return new Rectangle(this.x, this.y, this.w, this.h);
+        return RectangleUtils.rectPoints(new Rectangle(this.x, this.y, this.w, this.h));
     }
 
     protected void notifyListeners() {
@@ -94,9 +90,41 @@ class Info {
         this.setX(x-this.w/2);
         this.setY(y-this.h/2);
     }
-    
+        
     public void resize(Point anchor, int x, int y){
-    	
+    	// above anchor
+        if(y < anchor.y) {
+            // left of anchor
+    		if(x < anchor.x) {
+                this.setX(x);
+                this.setWidth(anchor.x-x);
+                
+                this.setY(y);
+                this.setHeight(anchor.y-y);  
+            }
+            // right of anchor
+            else {
+                this.setWidth(x-anchor.x);
+                
+                this.setY(y);
+                this.setHeight(anchor.y-y);                
+            }
+            
+        // below anchor
+        } else {
+            // left of anchor
+            if (x < anchor.x) {
+                this.setX(x);
+                this.setWidth(anchor.x-x);
+                
+                this.setHeight(y-anchor.y);
+            }
+            // right of anchor
+            else  {
+                this.setWidth(x-anchor.x);
+                this.setHeight(y-anchor.y);
+            }
+        }
     }
 
     public void setWidth(int w) {

@@ -15,7 +15,7 @@ public class RectangleUtils {
     public static Point oppositeCorner(Rectangle r, int x, int y) {
         ArrayList<Point> corners = rectPoints(r);
         double farthestDistance = 0;
-        Point farthestPoint;
+        Point farthestPoint = new Point();
         for (Point c : corners) {
             double cdist = Math.hypot(x-c.x, y-c.y);
             if (cdist > farthestDistance){

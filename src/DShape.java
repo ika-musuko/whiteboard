@@ -45,7 +45,7 @@ public abstract class DShape implements InfoListener{
     	for(Point p : this.info.getKnobs()){
     		Rectangle knobRegion= new Rectangle(p.x-KNOB_SIZE/2, p.y-KNOB_SIZE/2, KNOB_SIZE, KNOB_SIZE);
     		if(knobRegion.contains(x, y))
-    			return RectangleUtils.oppositeCorner(this.getBounds(), x, y);
+    			return RectangleUtils.oppositeCorner(this.info.getBounds(), x, y);
     	}
     	return Canvas.NOANCHOR;
     }

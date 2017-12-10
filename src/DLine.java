@@ -11,7 +11,7 @@ public class DLine extends DShape {
 	
     public void draw(Graphics g) {
         g.setColor(this.info.getColor());
-        g.setClip(this.info.getRect());
+        g.setClip(this.info.getBounds());
         g.drawLine(this.info.getX(), this.info.getY(), this.info.getWidth(), this.info.getHeight());
     }
     
