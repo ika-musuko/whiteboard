@@ -41,9 +41,9 @@ public class Whiteboard extends JFrame {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS)); 
 		
         // initialize each subwindow
-        this.canvas         = new Canvas(this);
         this.controlPanel   = new ControlPanel(this);
         this.statusTable    = new StatusTable(this);
+        this.canvas         = new Canvas(this);
 
         // place each subwindow onto the main GUI
         JPanel toolsLayout = new JPanel();
@@ -129,12 +129,12 @@ public class Whiteboard extends JFrame {
     
     public void fileLoader() throws FileNotFoundException
     {
-    	this.canvas.resetArray();
     	JFileChooser chooser = new JFileChooser();
     	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
     	int returnVal = chooser.showOpenDialog(null);
     	if(returnVal == JFileChooser.APPROVE_OPTION)
     	{
+            this.canvas.resetArray();
     		File file = chooser.getSelectedFile();
     		Scanner scanner = new Scanner(file); 
     		

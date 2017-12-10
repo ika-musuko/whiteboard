@@ -25,7 +25,7 @@ public class Canvas extends JPanel implements InfoListener {
         // mouseClicked selects a Shape
         @Override
 		public void mouseClicked(MouseEvent e) {
-            selected = Canvas.NOSELECTION;
+            select(Canvas.NOSELECTION);
             System.out.println("mouse: "+e.getX()+" "+e.getY());
             for(DShape ds : shapeList){
                 //System.out.println(ds+": bounds rect"+ds.getInfo().getBounds()+" CONTAINS? "+ds.contains(e.getX(), e.getY()));
@@ -96,7 +96,7 @@ public class Canvas extends JPanel implements InfoListener {
         this.whiteboard = whiteboard;
         this.shapeList = shapeList;
         this.selectedListeners = new ArrayList<>();
-        this.selected = Canvas.NOSELECTION; 
+        this.select(Canvas.NOSELECTION); 
         this.dragged = Canvas.NOSELECTION;
         
         // init the main canvas mouse click listener
@@ -111,9 +111,13 @@ public class Canvas extends JPanel implements InfoListener {
         this.refresh();
     }
 
+    // verifies if the currently selected DShape's info is a TextInfo or not, enables/disables the appropriate boxes, and synchronizes their fields
     public void verifyText() {
-       if(this.selected.getInfo() instanceof TextInfo)
-            this.whiteboard.getControlPanel().enableText( ((TextInfo)this.selected.getInfo()).getText() );
+       if(this.selected != null && this.selected.getInfo() instanceof TextInfo) {
+           TextInfo ti = (TextInfo)this.selected.getInfo();
+           System.out.println(ti.getFont());
+           this.whiteboard.getControlPanel().enableText(ti.getText(), ti.getFont().getFontName());
+       }
        else
             this.whiteboard.getControlPanel().disableText();
     }
@@ -188,7 +192,7 @@ public class Canvas extends JPanel implements InfoListener {
     public void removeSelected(){
         if(this.selected != Canvas.NOSELECTION) {
             this.shapeList.remove(this.selected);
-            this.selected = Canvas.NOSELECTION;
+            this.select(Canvas.NOSELECTION);
             this.refresh();
         }        
     }
@@ -221,7 +225,6 @@ public class Canvas extends JPanel implements InfoListener {
 	    	}
 	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath() + ".png");
     	}
-    	
     } 
 }
 

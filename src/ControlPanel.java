@@ -26,20 +26,27 @@ public class ControlPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
     private Whiteboard whiteboard;
     private JTextField textEditor;
-    private JComboBox fontBox;
+    private JComboBox<String> fontBox;
 
-    public void enableText(String s){
+    // enables text editing fields and sets them to the parameters
+    public void enableText(String s, String font){
         // enable the text editor and set it to the string
         this.textEditor.setEnabled(true);
         this.textEditor.setText(s);
         
         // enable the font box and set it to the font
         this.fontBox.setEnabled(true);
+        this.fontBox.setSelectedItem(font);
     }
 
+    // disables text editing fields
     public void disableText(){
+        // disable the text editor
         this.textEditor.setText("");
         this.textEditor.setEnabled(false);
+        
+        // disable the font box
+        this.fontBox.setEnabled(false);
     }
 
     public ControlPanel(Whiteboard whiteboard) {	 
@@ -301,30 +308,28 @@ public class ControlPanel extends JPanel {
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-	public JComboBox<Font> fontMenu()
+	public JComboBox<String> fontMenu()
     {
-    	
+        // get all the system font names
     	GraphicsEnvironment graphE = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    	Font [] fontList = graphE.getAllFonts();
-    	
-    	JComboBox<Font> fontBox = new JComboBox<Font>(fontList);
+    	String [] fontList = graphE.getAvailableFontFamilyNames();
+        
+        // render the JCombo box
+    	JComboBox<String> fontBox = new JComboBox<>(fontList);
+        
+        // selected items
     	fontBox.setRenderer(new DefaultListCellRenderer() {
-   
 			private static final long serialVersionUID = 1L;
 
 			@Override
     		   public Component getListCellRendererComponent(JList<?> list,
     		         Object value, int index, boolean isSelected, boolean cellHasFocus) {
-    		      if (value != null) {
-    		         Font font = (Font) value;
-    		         value = font.getName();
-    		      }
-    		      return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+    		      return super.getListCellRendererComponent(list, (String)value, index, isSelected, cellHasFocus);
     		   }
     		});
     	
+        // feed font info toe canvas
     	fontBox.addItemListener(new ItemListener() {
-
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -332,8 +337,7 @@ public class ControlPanel extends JPanel {
                 	//prevents error from happening when shapes are "given a font"
                 	if(whiteboard.getCanvas().getSelected() instanceof DText)
                 	{
-                		 final String fontName = ((Font) fontBox.getSelectedItem()).getFontName();
-                         ((TextInfo) whiteboard.getCanvas().getSelected().getInfo()).setFont(fontName);
+                         ((TextInfo) whiteboard.getCanvas().getSelected().getInfo()).setFont((String)fontBox.getSelectedItem());
                 	}
                 }
             }
