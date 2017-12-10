@@ -27,6 +27,11 @@ public class ControlPanel extends JPanel {
     private Whiteboard whiteboard;
     private JTextField textEditor;
     private JComboBox<String> fontBox;
+    
+    private JButton setColorButton;
+    private JButton sendToFront   ;
+    private JButton sendToBack    ;
+    private JButton removeButton  ;
 
     // enables text editing fields and sets them to the parameters
     public void enableText(String s, String font){
@@ -48,7 +53,23 @@ public class ControlPanel extends JPanel {
         // disable the font box
         this.fontBox.setEnabled(false);
     }
+    
+    // enables shape editing buttons
+    public void enableShapeEditing(){
+        this.setColorButton.setEnabled(true);
+        this.sendToFront.setEnabled   (true);  
+        this.sendToBack.setEnabled    (true);   
+        this.removeButton.setEnabled  (true); 
+    }
 
+    // disables shape editing buttons
+    public void disableShapeEditing(){
+        this.setColorButton.setEnabled(false);
+        this.sendToFront.setEnabled   (false);  
+        this.sendToBack.setEnabled    (false);   
+        this.removeButton.setEnabled  (false); 
+    }
+    
     public ControlPanel(Whiteboard whiteboard) {	 
     	// init fields
         this.whiteboard = whiteboard;
@@ -80,28 +101,28 @@ public class ControlPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//*******Add rectangle of random size and location******
-				whiteboard.addShape(new DRectangle());
+				whiteboard.getCanvas().addShape(new DRectangle());
 			}
 		});
 		addOval.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add ellipse of random size and location*******
-                whiteboard.addShape(new DEllipse());
+                whiteboard.getCanvas().addShape(new DEllipse());
 			}
 		});
 		addLine.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add line of default size and location*******
-				whiteboard.addShape(new DLine());
+				whiteboard.getCanvas().addShape(new DLine());
 			}
 		});
 		addText.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//********add text of default size and location*******
-				whiteboard.addShape(new DText());
+				whiteboard.getCanvas().addShape(new DText());
 			}
 		});
 		
@@ -151,10 +172,10 @@ public class ControlPanel extends JPanel {
 		shapeColorPanel.setVisible(true);
 		
 		JLabel shapeColorText = new JLabel("Set Shape Color: ");
-		JButton setColorButton = new JButton("Set Color");
+		this.setColorButton = new JButton("Set Color");
 		
 		shapeColorPanel.add(shapeColorText);
-		shapeColorPanel.add(setColorButton);
+		shapeColorPanel.add(this.setColorButton);
 		
 		//*******listeners**********
 		setColorButton.addActionListener(new ActionListener(){
@@ -173,10 +194,10 @@ public class ControlPanel extends JPanel {
 		editShapePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		editShapePanel.setVisible(true);
 		
-		JLabel editShapeText = new JLabel("Edit Shapes:");
-		JButton sendToFront = new JButton("Send to Front");
-		JButton sendToBack = new JButton("Send to Back");
-		JButton removeButton = new JButton("Remove this Shape");
+		JLabel editShapeText = new JLabel("Edit Selected Shape:");
+		this.sendToFront  = new JButton("Move Front");
+		this.sendToBack   = new JButton("Move Back");
+		this.removeButton = new JButton("Remove");
 		
 		editShapePanel.add(editShapeText);
 		editShapePanel.add(sendToFront);
@@ -214,22 +235,25 @@ public class ControlPanel extends JPanel {
 		JLabel fileIOText = new JLabel("Load/Save Content:");
 		JButton saveButton = new JButton("Save");
 		JButton loadButton = new JButton("Load");
+		JButton resetButton = new JButton("Reset");
 		JButton saveToPngButton = new JButton("Save as PNG");
 		
 		fileIOPanel.add(fileIOText);
 		fileIOPanel.add(saveButton);
 		fileIOPanel.add(loadButton);
+		fileIOPanel.add(resetButton);
 		fileIOPanel.add(saveToPngButton);
 		
 		//**********listeners*************
 		saveButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//save the locations and specifications of the shape infos into a file, xml? txt? something else?
+				//save the locations and specifications of the shape infos into a file
 				whiteboard.fileSaver();
 			}
 		});
-		loadButton.addActionListener(new ActionListener(){
+		
+        loadButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//open a dialog box allowing the user to select the file they want to load, load the info from the file
@@ -242,6 +266,14 @@ public class ControlPanel extends JPanel {
 				}
 			}
 		});
+        
+        resetButton.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                whiteboard.getCanvas().resetArray();
+            }
+        });
+        
 		saveToPngButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {

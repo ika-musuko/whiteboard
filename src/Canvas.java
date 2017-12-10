@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import java.util.List;
 import java.util.*;
 
-public class Canvas extends JPanel implements InfoListener {
+public class Canvas extends JPanel {
 
 	private static final long serialVersionUID = 1L;
     
@@ -92,12 +92,6 @@ public class Canvas extends JPanel implements InfoListener {
 		}
     }
 
-    // InfoListener implement
-    @Override
-    public void infoChanged(Info info){
-        this.refresh();
-    }
-
 	public Canvas(Whiteboard whiteboard){
         this(whiteboard, new ArrayList<>());
 	}
@@ -142,6 +136,15 @@ public class Canvas extends JPanel implements InfoListener {
         this.repaint();
     }
 
+    // verifies that a shape is actually selected
+    public void verifyShapeSelected() {
+        this.verifyText();
+        if(this.selected == null || this.selected == Canvas.NOSELECTION)
+            this.whiteboard.getControlPanel().disableShapeEditing();
+        else
+            this.whiteboard.getControlPanel().enableShapeEditing();
+    }
+    
     // verifies if the currently selected DShape's info is a TextInfo or not, enables/disables the appropriate boxes, and synchronizes their fields
     public void verifyText() {
        if(this.selected != null && this.selected.getInfo() instanceof TextInfo) {
@@ -167,7 +170,11 @@ public class Canvas extends JPanel implements InfoListener {
 
     private void select(DShape ds) {
         this.selected = ds;
-        this.verifyText();
+        this.verifyShapeSelected();
+    }
+    
+    public void deselect(){
+        this.select(Canvas.NOSELECTION);
     }
 
     public void resetArray(){

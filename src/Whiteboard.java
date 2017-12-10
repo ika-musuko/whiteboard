@@ -67,10 +67,6 @@ public class Whiteboard extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-    public void addShape(DShape ds) {
-        this.canvas.addShape(ds);
-    }
-   	 
     public void fileSaver()
     {
     	JFileChooser chooser = new JFileChooser();
@@ -85,8 +81,9 @@ public class Whiteboard extends JFrame {
     		
     		try (PrintWriter out = new PrintWriter(selectedFile)){
     		
-    		for (DShape shape : this.canvas.getShapeList()) 
+    		for (int i = this.canvas.getShapeList().size()-1; i >= 0; --i)
     		{
+                DShape shape = this.canvas.getShapeList().get(i);
     			String text = "";
     			
     			if(shape instanceof DRectangle)
@@ -198,10 +195,11 @@ public class Whiteboard extends JFrame {
     			}
 
     			
-    			addShape(shape);
+    			this.canvas.addShape(shape);
     		}
     		
     		scanner.close();
-    	} 
+    	}
+        this.canvas.deselect();
     }
 }
