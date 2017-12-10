@@ -29,6 +29,11 @@ class TextInfo extends Info {
     public String getFontName(){
     	return this.font;
     }
+    
+    @Override
+    public Rectangle getRect() {
+        return new Rectangle(this.getX()-4, this.getY()-4, this.getWidth()+9, this.getHeight()+9);
+    }
 
     public void setText(String text) {
         this.text = text;

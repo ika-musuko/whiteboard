@@ -35,7 +35,7 @@ class Info {
     }
 
     protected Rectangle getBounds() {
-        return (new Rectangle(this.x, this.y, this.w, this.h));
+        return this.getRect();
     }
 
     public boolean contains(int x, int y){
@@ -63,7 +63,11 @@ class Info {
     }
 
     public List<Point> getKnobs() {
-        return RectangleUtils.rectPoints(new Rectangle(this.x, this.y, this.w, this.h));
+        return RectangleUtils.rectPoints(this.getRect());
+    }
+    
+    public Rectangle getRect() {
+        return new Rectangle(this.x, this.y, this.w, this.h);
     }
 
     protected void notifyListeners() {
@@ -91,7 +95,7 @@ class Info {
         this.setY(y-this.h/2);
     }
     
-    public void resize(Point p, int x, int y){
+    public void resize(Point anchor, int x, int y){
     	
     }
 

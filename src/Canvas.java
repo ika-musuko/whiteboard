@@ -26,6 +26,10 @@ public class Canvas extends JPanel implements CanvasListener{
     private DShape selected;
     private DShape dragged;
     
+    private boolean resizing;
+    private Point anchorKnob;
+    private static final NOANCHOR = new Point(-10000, -10000);
+    
     private List<CanvasListener> canvasListeners;
 
     private Whiteboard whiteboard;
@@ -57,15 +61,22 @@ public class Canvas extends JPanel implements CanvasListener{
 		}
 
         @Override
-        public void mouseDragged(MouseEvent e) {
-            if(dragged != Canvas.NOSELECTION){
-                dragged.getInfo().move(e.getX(), e.getY()); 
+        public void mouseDragged(MouseEvent e) { 
+            // if something is already being dragged...
+            if (dragged != Canvas.NOSELECTION) {
+                if (anchorKnob != Canvas.NOANCHOR)
+                    dragged.getInfo().resize(anchorKnob, e.getX(), e.getY());                
+                else
+                    dragged.getInfo().move(e.getX(), e.getY());
                 return;
             }
+            
+            // try to make a new selection and move it (no resizing) if a selection is made
             for(DShape ds : shapeList){
                 if(ds.contains(e.getX(), e.getY())){
                     select(ds);
                     dragged = ds;
+                    anchorKnob = ds.getAnchor(e.getX(), e.getY());
                     break;
                 }
             }
@@ -86,6 +97,7 @@ public class Canvas extends JPanel implements CanvasListener{
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			dragged = Canvas.NOSELECTION;
+            anchorKnob = Canvas.NOANCHOR;
 		}
 
 		@Override
@@ -109,6 +121,7 @@ public class Canvas extends JPanel implements CanvasListener{
         this.shapeList = shapeList;
         this.select(Canvas.NOSELECTION); 
         this.dragged = Canvas.NOSELECTION;
+        this.anchorKnob = Canvas.NOANCHOR;
         
         // init the main canvas mouse click listener
         ClickListener cl = new ClickListener();
