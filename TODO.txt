@@ -12,8 +12,8 @@ Delete Shape              done
 Move Front/Back           done
 DLine                     done
 DText                     done
-Text Inspector            no font editor
-Table
+Text Inspector            done
+Status Table
 File Saving               done
 File Opening              done
 Save as PNG               done
