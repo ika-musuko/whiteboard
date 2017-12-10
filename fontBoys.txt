@@ -1,0 +1,15 @@
+Rectangle #009999 293 263 100 100
+Rectangle #CC3300 193 262 100 100
+Rectangle #66FF99 94 263 100 100
+Rectangle #009900 -4 263 100 100
+Text #660066 200 78 200 75 "•¶Žš" "‚l‚r ‚oƒSƒVƒbƒN" 
+Text #CC00CC 40 160 200 75 "’j" "‚l‚r ‚oƒSƒVƒbƒN" 
+Ellipse #CCCCFF 254 75 100 100
+Ellipse #CCCCFF 191 76 100 100
+Rectangle #0000FF 295 -26 100 100
+Ellipse #99FF00 25 159 100 100
+Rectangle #666600 195 -27 100 100
+Rectangle #FF3399 95 -27 100 100
+Rectangle #808080 -5 -27 100 100
+Text #00FF00 163 165 200 75 "boys" "Comic Sans MS" 
+Text #3366FF 12 80 200 75 "font" "Lucida Console" 
