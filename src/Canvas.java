@@ -13,9 +13,18 @@ import java.util.*;
 public class Canvas extends JPanel implements InfoListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final DShape NOSELECTION = new DRectangle(new Info(-4, -4, 0, 0));		//dummy shape to point to when there is no selection
+    
+    //dummy shape to point to when there is no selection
+	private static final DShape NOSELECTION = new DShape() {
+        @Override
+        protected void draw(Graphics g){
+            // dummy shapes don't draw anything!
+        }
+    };	
+	
     private List<DShape> shapeList;
     private List<InfoListener> selectedListeners;
+    private List<CanvasListener> canvasListeners;
     private Whiteboard whiteboard;
     private DShape selected;
     private DShape dragged;
@@ -83,6 +92,7 @@ public class Canvas extends JPanel implements InfoListener {
     }
 
     // InfoListener implement
+    @Override
     public void infoChanged(Info info){
         this.refresh();
     }

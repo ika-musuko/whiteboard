@@ -3,9 +3,15 @@ import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class StatusTable extends JPanel implements InfoListener{
+public class StatusTable extends JPanel implements CanvasListener {
     private Whiteboard whiteboard;
     JTable table;
+    
+    // CanvasListener implement
+    @Override
+    public void canvasChanged(List<DShape> shapeList){
+        this.updateContents(shapeList);
+    }
     
     public StatusTable(Whiteboard whiteboard){
 		this.setLayout(new BorderLayout());
@@ -24,11 +30,7 @@ public class StatusTable extends JPanel implements InfoListener{
 	    this.setVisible(true);
     }
     
-    public void infoChanged(Info info){
-
-    }
-    
-    public void update(List<Shape> shapeList){
+    private void updateContents(List<DShape> shapeList) {
         
     }
 }
