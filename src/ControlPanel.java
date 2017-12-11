@@ -331,13 +331,23 @@ public class ControlPanel extends JPanel {
 			    	} catch (NumberFormatException numEx) {
 			    		server = new Server(whiteboard.getCanvas());
 			    	}
+			    	
+			    	//disable server buttons
+					startServerButton.setEnabled(false);
+					startClientButton.setEnabled(false);
+			    
 			    	server.start();
 			    	whiteboard.getCanvas().addCanvasListener(server);
 			    	System.out.println("Server initiated.");	
 			    }
 			}
 		});
+		
 		startClientButton.addActionListener(new ActionListener(){
+			
+			JTextField textEditor1 = textEditor;
+			JComboBox<String> fontBox1 = fontBox;
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
@@ -363,10 +373,14 @@ public class ControlPanel extends JPanel {
 						e1.printStackTrace();
 					}
 			    	
+			    	
+			    	// disable buttons in control panel
+			    	
 			    	addRect.setEnabled(false);
 					addOval.setEnabled(false);
 					addLine.setEnabled(false);
 					addText.setEnabled(false);
+					//disable class variables
 					saveButton.setEnabled(false);
 					loadButton.setEnabled(false);
 					resetButton.setEnabled(false);
