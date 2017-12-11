@@ -1,8 +1,9 @@
 import java.awt.*;
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class DShape implements InfoListener{
+public abstract class DShape implements InfoListener, Serializable {
     protected Info info; 
     protected abstract void draw(Graphics g); // override this method to decide how to draw
     protected static final int KNOB_SIZE = 9;

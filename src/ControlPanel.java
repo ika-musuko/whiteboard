@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
@@ -305,7 +308,7 @@ public class ControlPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				//start a server to display the contents of the whiteboard to a client over the network
 				JFrame frame = new JFrame();
-			    String message = "Enter IP and port number you want to use (default is 39587):";
+			    String message = "Enter the port number you want to use (default is 39587):";
 			    String text = JOptionPane.showInputDialog(frame, message);
 			    if (text == null) {
 			      //do nothing
@@ -313,11 +316,12 @@ public class ControlPanel extends JPanel {
 			    } else {
 			    	Server server;
 			    	try{
-			    		server = new Server(Integer.parseInt(text));
+			    		server = new Server(Integer.parseInt(text), whiteboard.getCanvas());
 			    	} catch (NumberFormatException numEx) {
-			    		server = new Server();
+			    		server = new Server(whiteboard.getCanvas());
 			    	}
 			    	server.start();
+			    	whiteboard.getCanvas().addCanvasListener(server);
 			    	System.out.println("Server initiated.");	
 			    }
 			}
@@ -327,20 +331,27 @@ public class ControlPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				//start a client to see the contents of a whiteboard that is in server mode
 				JFrame frame = new JFrame();
-			    String message = "Enter the port number you want to use (default is 39587):";
+			    String message = "Enter IP and port number you want to use (default is 127.0.0.1:39587):";
 			    String text = JOptionPane.showInputDialog(frame, message);
 			    if (text == null) {
 			      //do nothing
 			    	System.out.println("Cancelled");
 			    } else {
+			    	if(text.equals(""))
+			    		text = "127.0.0.1:39587";
+			    	String[] addressPort = text.split(":");
+			    	int port = Integer.parseInt(addressPort[1]);
+			    	InetAddress remoteHost = null;
+			    	try {
+						remoteHost = InetAddress.getByName(addressPort[0]);
+					} catch (UnknownHostException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 			    	Client client;
-			    	try{
-			    		client = new Client(Integer.parseInt(text));
-			    	} catch (NumberFormatException numEx) {
-			    		client = new Client();
-			    	}
+			    	client = new Client(remoteHost, port, whiteboard.getCanvas());
 			    	client.start();
-			    	System.out.println("Server initiated.");	
+			    	
 			    }
 			}
 		});

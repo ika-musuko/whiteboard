@@ -244,7 +244,7 @@ public class Canvas extends JPanel implements CanvasListener{
     public DShape getSelected(){
     	return selected;
     }
- 
+    
     public void saveToPNG(){
     	JFileChooser chooser = new JFileChooser();
     	chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -266,5 +266,114 @@ public class Canvas extends JPanel implements CanvasListener{
 	    	System.out.println("Saved as png file: " + chooser.getSelectedFile().getAbsolutePath() + ".png");
     	}
     } 
+    
+    public static String canvasToString(List<DShape> shapeList) {
+    	StringBuilder out = new StringBuilder();
+		for (DShape shape : shapeList)
+		{
+			String text = "";
+			
+			if(shape instanceof DRectangle)
+			{
+				text += "Rectangle ";
+			}
+			else if(shape instanceof DEllipse)
+			{
+				text += "Ellipse ";
+			}
+			else if(shape instanceof DLine)
+			{
+				text += "Line ";
+			}
+			else if(shape instanceof DText)
+			{
+				text += "Text ";
+			}
+			
+			text += ("#" + Integer.toHexString(shape.getInfo().getColor().getRGB()).substring(2).toUpperCase() + " ");
+			text += shape.getInfo().getX() + " " + shape.getInfo().getY() + " " + shape.getInfo().getWidth() + " " + shape.getInfo().getHeight();
+			
+			if(shape instanceof DText)
+			{
+				text += (" " + '"' + ((TextInfo) shape.getInfo()).getText() + '"' + " ");
+				text += ('"' + ((TextInfo) shape.getInfo()).getFontName() + '"' + " ");	
+			}
+			out.append(text);
+			out.append('\n');
+		}
+		return out.toString();
+    }
+    
+    public static ArrayList<DShape> canvasFromString(String input) {
+	
+		Scanner scanner = new Scanner(input); 
+		ArrayList<DShape> list = new ArrayList<DShape>();
+		
+		while(scanner.hasNext()){
+			DShape shape = null;
+			
+			// default parameters for Info
+			String shapeType = scanner.next();
+			
+			String colorHexVal = scanner.next();
+			Color color = Color.decode(colorHexVal);
+			int x = scanner.nextInt();
+			int y = scanner.nextInt();
+			int width = scanner.nextInt();
+			int height = scanner.nextInt();	
+			
+			if(shapeType.equals("Text"))
+			{
+				String text = "";
+				char c = ' ';
+				while(c != '"')
+				{
+					text += scanner.next();
+					text += " ";
+					c = text.charAt(text.length() - 2);
+				}
+				
+				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
+				
+				String fontName = "";
+				c = ' ';
+				while(c != '"')
+				{
+					fontName += scanner.next();
+					fontName += " ";
+					c = fontName.charAt(fontName.length() - 2);
+				}
+				fontName = fontName.substring(1, fontName.length() - 2);  // get rid of beginning and end quotes
+				
+				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
+				shape = new DText(infoT);
+			}
+			else if(shapeType.equals("Line"))
+			{
+				LineInfo infoL = new LineInfo(color, x, y, width, height);
+				shape = new DLine(infoL);
+			}
+			else
+			{
+				Info info = new Info(color, x, y, width, height);
+				
+    			if(shapeType.equals("Rectangle"))
+    			{
+    				shape = new DRectangle(info);
+    			}
+    			else if(shapeType.equals("Ellipse"))
+    			{
+    				shape = new DEllipse(info);
+    			}
+			}
+
+			
+			list.add(shape);
+		}
+		scanner.close();
+		return list;
+    }
+    
+    
 }
 
