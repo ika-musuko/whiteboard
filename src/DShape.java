@@ -32,10 +32,6 @@ public abstract class DShape implements InfoListener{
         this.info = info;
     }
     
-    public boolean contains(int x, int y){
-    	return info.contains(x, y);
-    }
-    
     // get the opposite end of the bounds rectangle
     public Point getAnchor(int x, int y){
     	for(Point p : this.info.getKnobs()){

@@ -85,11 +85,14 @@ public class LineInfo extends Info {
     @Override
     public Rectangle getBounds() {
         int knobOffset = DShape.KNOB_SIZE/2;
-        Rectangle bounds = new Rectangle(new Point(this.x, this.y));
-        bounds.add(new Point(this.x2, this.y2));
-        //bounds.translate(-knobOffset, -knobOffset);
+        Rectangle bounds = RectangleUtils.rectFromTwoPoints(new Point(this.x, this.y), new Point(this.x2, this.y2));
         bounds.grow(knobOffset, knobOffset);
         return bounds;
+    }
+    
+    @Override
+    public boolean contains(int x, int y) {
+        return RectangleUtils.rectFromTwoPoints(new Point(this.x, this.y), new Point(this.x2, this.y2)).contains(x, y);
     }
     
 }

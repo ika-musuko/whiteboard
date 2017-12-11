@@ -27,6 +27,13 @@ public class RectangleUtils {
         return farthestPoint;
     }
     
+    // make a rect from two Points
+    public static Rectangle rectFromTwoPoints(Point a, Point b) {
+        Rectangle r = new Rectangle(a);
+        r.add(b);
+        return r;
+    }
+    
     // check if two points are equal
     public static boolean pointEquals(Point a, Point b) {
         return (a.x == b.x) && (a.y == b.y);

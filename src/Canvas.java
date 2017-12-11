@@ -55,12 +55,21 @@ public class Canvas extends JPanel implements CanvasListener{
         
         private DShape trySelect(MouseEvent e){
             for(DShape ds : shapeList){
-                if(ds.contains(e.getX(), e.getY())){
+                if(ds.getInfo().contains(e.getX(), e.getY())){
                     return ds;             
                 }
             }
             return Canvas.NOSELECTION;
         }
+        
+        private DShape trySelectWithKnobs(MouseEvent e){
+            for(DShape ds : shapeList){
+                if(ds.getInfo().containsWithKnobs(e.getX(), e.getY())){
+                    return ds;             
+                }
+            }
+            return Canvas.NOSELECTION;
+        }       
         
         // mouseClicked selects a Shape
         @Override
@@ -86,7 +95,7 @@ public class Canvas extends JPanel implements CanvasListener{
             
             // try to make a new selection and move it (no resizing) if a selection is made
             for(DShape ds : shapeList){
-                if(ds.contains(e.getX(), e.getY())){
+                if(ds.getInfo().containsWithKnobs(e.getX(), e.getY())){
                     dragged = ds;
                     anchorKnob = ds.getAnchor(e.getX(), e.getY());
                     break;
@@ -102,7 +111,10 @@ public class Canvas extends JPanel implements CanvasListener{
 
 		@Override
 		public void mousePressed(MouseEvent e) {
-            select(this.trySelect(e));
+            if (selected == Canvas.NOSELECTION) 
+                select(this.trySelect(e));
+            else
+                select(this.trySelectWithKnobs(e));
             if (selected != Canvas.NOSELECTION) {
                 this.xOffset = e.getX() - selected.getInfo().getX();
                 this.yOffset = e.getY() - selected.getInfo().getY();

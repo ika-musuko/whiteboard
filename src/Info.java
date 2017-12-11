@@ -48,10 +48,25 @@ class Info {
         int knobOffset = DShape.KNOB_SIZE/2;
         return (new Rectangle(this.x+knobOffset, this.y-knobOffset, this.w+knobOffset, this.h+knobOffset));
     }
-
-    public boolean contains(int x, int y){
-    	return this.getBounds().contains(x, y);
+    
+    public boolean contains(int x, int y) {
+        return ((new Rectangle(this.x, this.y, this.w, this.h)).contains(x, y));
     }
+    
+    public boolean containsWithKnobs(int x, int y){
+        // shape bounds
+    	if (this.contains(x, y))
+            return true;
+        
+        // knob bounds
+        for(Point p : this.getKnobs()){
+    		Rectangle knobRegion = new Rectangle(p.x-DShape.KNOB_SIZE/2, p.y-DShape.KNOB_SIZE/2, DShape.KNOB_SIZE, DShape.KNOB_SIZE);
+            if(knobRegion.contains(x, y))
+                return true; 
+        }
+        return false;
+    }
+    
 
     public Color getColor() {
         return this.color;
