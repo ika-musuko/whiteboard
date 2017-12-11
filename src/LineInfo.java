@@ -67,7 +67,7 @@ public class LineInfo extends Info {
     @Override
     public void move(int x, int y){
         Rectangle newBounds = this.getBounds();
-        newBounds.setLocation(x-newBounds.width/2, y-newBounds.height/2);
+        newBounds.setLocation(x, y);
         List<Point> points = RectangleUtils.rectPoints(newBounds);
         int p1 = 0, p2 = 3;
         if (this.x < this.w){

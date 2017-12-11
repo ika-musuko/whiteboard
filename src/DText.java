@@ -1,7 +1,11 @@
 import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Point;
 
 public class DText extends DShape{	
-	public DText(){
+	protected static final int KNOB_SIZE = 9;
+    
+    public DText(){
 		this.setInfo(new TextInfo());
 	}
 	
@@ -12,6 +16,14 @@ public class DText extends DShape{
     @Override
     public DShape copy() {
         return new DText(new TextInfo((TextInfo)this.info));
+    }
+    
+    @Override
+    public void drawKnobs(Graphics g) {
+        for (Point p : this.info.getKnobs()){
+            g.setColor(Color.BLACK);
+            g.fillRect(p.x-(KNOB_SIZE/2), p.y-(KNOB_SIZE/2), KNOB_SIZE, KNOB_SIZE); // why
+        }
     }
 	
 	@Override

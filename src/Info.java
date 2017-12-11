@@ -97,8 +97,8 @@ class Info {
     }
 
     public void move(int x, int y){
-        this.setX(x-this.w/2);
-        this.setY(y-this.h/2);
+        this.setX(x);
+        this.setY(y);
     }
         
     public void resize(Point anchor, int x, int y){
