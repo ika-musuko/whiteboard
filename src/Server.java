@@ -2,11 +2,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Server extends Thread implements CanvasListener {
 
 	ServerSocket serverSocket = null;
+	ArrayList<Client> clientList;
 	
 	public Server(){
 		try{
@@ -31,13 +33,8 @@ public class Server extends Thread implements CanvasListener {
 			try{
 				client = serverSocket.accept();
 				clientThread = new Client(client);
-				//clientThread.start();
-				System.out.println("Connection established from " + client.getInetAddress());
-				
-				ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream());
-				ObjectInputStream in = new ObjectInputStream(client.getInputStream());
-				//out.writeObject(arg0);
-				
+				clientList.add(clientThread);
+				clientThread.start();
 			} catch (IOException e){
 				System.out.println("Connection failed!");
 				e.printStackTrace();
