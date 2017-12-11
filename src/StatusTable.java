@@ -33,6 +33,7 @@ public class StatusTable extends JPanel implements CanvasListener {
 	    sp.setPreferredSize(new Dimension(500, 100));
 
 	    this.add(sp);
+        this.table.getTableHeader().setReorderingAllowed(false);
 	    this.setVisible(true);
     }
     
