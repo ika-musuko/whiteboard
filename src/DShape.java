@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class DShape implements InfoListener{
     protected Info info; 
-    protected static final int KNOB_SIZE = 18;
+    public static final int KNOB_SIZE = 9;
     
     // InfoListener implement
     @Override
