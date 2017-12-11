@@ -329,6 +329,8 @@ public class ControlPanel extends JPanel {
 		startClientButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
+				
 				//start a client to see the contents of a whiteboard that is in server mode
 				JFrame frame = new JFrame();
 			    String message = "Enter IP and port number you want to use (default is 127.0.0.1:39587):";
@@ -342,16 +344,29 @@ public class ControlPanel extends JPanel {
 			    	String[] addressPort = text.split(":");
 			    	int port = Integer.parseInt(addressPort[1]);
 			    	InetAddress remoteHost = null;
+
 			    	try {
 						remoteHost = InetAddress.getByName(addressPort[0]);
 					} catch (UnknownHostException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+			    	
+			    	addRect.setEnabled(false);
+					addOval.setEnabled(false);
+					addLine.setEnabled(false);
+					addText.setEnabled(false);
+					saveButton.setEnabled(false);
+					loadButton.setEnabled(false);
+					resetButton.setEnabled(false);
+					saveToPngButton.setEnabled(false);
+					startServerButton.setEnabled(false);
+					startClientButton.setEnabled(false);
+			    	
 			    	Client client;
 			    	client = new Client(remoteHost, port, whiteboard.getCanvas());
 			    	client.start();
-			    	
+	
 			    }
 			}
 		});
