@@ -45,8 +45,8 @@ public class StatusTable extends JPanel implements CanvasListener {
             if (ds.getInfo() instanceof LineInfo) {
                 this.table.getModel().setValueAt("x1: "+((LineInfo)ds.getInfo()).getX(), i, 1);
                 this.table.getModel().setValueAt("y1: "+((LineInfo)ds.getInfo()).getY(), i, 2);
-                this.table.getModel().setValueAt("x2: "+((LineInfo)ds.getInfo()).getX2(), i, 3);
-                this.table.getModel().setValueAt("y2: "+((LineInfo)ds.getInfo()).getY2(), i, 4);
+                this.table.getModel().setValueAt("x2: "+((LineInfo)ds.getInfo()).getWidth(), i, 3);
+                this.table.getModel().setValueAt("y2: "+((LineInfo)ds.getInfo()).getHeight(), i, 4);
             }
             
             else {
