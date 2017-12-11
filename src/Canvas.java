@@ -31,6 +31,8 @@ public class Canvas extends JPanel implements CanvasListener{
     private DShape selected;
     private DShape dragged;
     
+    private ClickListener cl;
+    
     private boolean resizing;
     private Point anchorKnob;
     public static final Point NOANCHOR = new Point(-10000, -10000); // dummy anchor point
@@ -157,9 +159,9 @@ public class Canvas extends JPanel implements CanvasListener{
         this.anchorKnob = Canvas.NOANCHOR;
         
         // init the main canvas mouse click listener
-        ClickListener cl = new ClickListener();
-        this.addMouseListener(cl);
-        this.addMouseMotionListener(cl);
+        this.cl = new ClickListener();
+        this.addMouseListener(this.cl);
+        this.addMouseMotionListener(this.cl);
         
         // init the canvas listeners
         this.canvasListeners = new ArrayList<>();
@@ -293,6 +295,14 @@ public class Canvas extends JPanel implements CanvasListener{
     
     public DShape getSelected(){
     	return selected;
+    }
+    
+    // disable for client mode
+    public void disable() {
+        this.removeMouseMotionListener(this.cl);
+        this.removeMouseListener(this.cl);
+        this.deselect();
+        this.refresh();
     }
     
     public void saveToPNG(){

@@ -395,6 +395,8 @@ public class ControlPanel extends JPanel {
                     disableText();
 			    	isClient = true;
                     
+                    whiteboard.getCanvas().disable();
+                    
 			    	Client client;
 			    	client = new Client(remoteHost, port, whiteboard.getCanvas());
 			    	client.start();
