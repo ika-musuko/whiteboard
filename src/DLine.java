@@ -27,9 +27,9 @@ public class DLine extends DShape {
     }
 	
     public void draw(Graphics g) {
-        Rectangle bounds = this.info.getBounds();
+        Rectangle bounds = ((LineInfo)this.info).getBounds();
         g.setColor(this.info.getColor());
-        g.drawLine(this.info.getX(), this.info.getY(), ((LineInfo)this.info).getX2(), ((LineInfo)this.info).getY2());
+        g.drawLine(this.info.getX(), this.info.getY(), this.info.getWidth(), this.info.getHeight());
     }
     
 }
