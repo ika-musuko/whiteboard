@@ -27,7 +27,15 @@ public class Server extends Thread implements CanvasListener {
 			serverSocket = new ServerSocket(port);
 			clientList = new ArrayList<ObjectOutputStream>();
 		} catch (IOException e){
-			System.out.println("Could not listen on port " + port);
+			System.out.println("Could not listen on port " + port + ". Using default 39587");	
+			try {
+				this.canvas = canvas;
+				serverSocket = new ServerSocket(39587);
+				clientList = new ArrayList<ObjectOutputStream>();
+			} catch (IOException e1) {
+				System.out.println("Failed!");
+			}
+			
 		}
 	}
 	
@@ -42,8 +50,7 @@ public class Server extends Thread implements CanvasListener {
 				try {
 					out.writeObject(Canvas.canvasToString(canvas.getShapeList()));
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					System.out.println("Could not connect!");
 				}
 			} catch (IOException e){
 				System.out.println("Connection failed!");
@@ -58,8 +65,7 @@ public class Server extends Thread implements CanvasListener {
 			try {
 				client.writeObject(Canvas.canvasToString(shapeList));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Failed to send!");
 			}
 			
 		}
