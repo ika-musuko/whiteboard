@@ -69,17 +69,18 @@ public class Canvas extends JPanel implements CanvasListener{
         public void mouseDragged(MouseEvent e) { 
             // if something is already being dragged...
             if (dragged != Canvas.NOSELECTION) {
-                if (anchorKnob != Canvas.NOANCHOR)
+                if (selected == dragged && anchorKnob != Canvas.NOANCHOR)
                     dragged.getInfo().resize(anchorKnob, e.getX(), e.getY());                
-                else
+                else{
                     dragged.getInfo().move(e.getX(), e.getY());
+                    select(Canvas.NOSELECTION);
+                }
                 return;
             }
             
             // try to make a new selection and move it (no resizing) if a selection is made
             for(DShape ds : shapeList){
                 if(ds.contains(e.getX(), e.getY())){
-                    select(ds);
                     dragged = ds;
                     anchorKnob = ds.getAnchor(e.getX(), e.getY());
                     break;
@@ -101,8 +102,10 @@ public class Canvas extends JPanel implements CanvasListener{
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
+            select(dragged);
 			dragged = Canvas.NOSELECTION;
             anchorKnob = Canvas.NOANCHOR;
+            refresh();
 		}
 
 		@Override
@@ -218,7 +221,7 @@ public class Canvas extends JPanel implements CanvasListener{
 
         for (int i = this.shapeList.size()-1; i >= 0; --i) {
             this.shapeList.get(i).draw(g2);
-            if(this.shapeList.get(i) == this.selected)
+            if(this.shapeList.get(i) == this.selected || this.shapeList.get(i) == this.dragged)
                 this.shapeList.get(i).drawKnobs(g2);
             g2.setClip(null);
         }
