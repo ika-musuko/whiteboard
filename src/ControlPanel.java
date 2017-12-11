@@ -36,9 +36,14 @@ public class ControlPanel extends JPanel {
     private JButton sendToBack    ;
     private JButton duplicate     ;
     private JButton removeButton  ;
+    
+    public boolean isClient;
 
+    // is this a client
+    
     // enables text editing fields and sets them to the parameters
     public void enableText(String s, String font){
+        if(this.isClient) return;
         // enable the text editor and set it to the string
         this.textEditor.setEnabled(true);
         this.textEditor.setText(s);
@@ -60,6 +65,7 @@ public class ControlPanel extends JPanel {
     
     // enables shape editing buttons
     public void enableShapeEditing(){
+        if(this.isClient) return;
         this.setColorButton.setEnabled(true);
         this.sendToFront.setEnabled   (true);  
         this.sendToBack.setEnabled    (true);   
@@ -80,6 +86,7 @@ public class ControlPanel extends JPanel {
     	// init fields
         this.whiteboard = whiteboard;
         this.textEditor = new JTextField();
+        this.isClient   = false;
     	
     	//sets the layout of all the panes to be aligned vertically
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -384,7 +391,10 @@ public class ControlPanel extends JPanel {
 					saveToPngButton.setEnabled(false);
 					startServerButton.setEnabled(false);
 					startClientButton.setEnabled(false);
-			    	
+                    disableShapeEditing();
+                    disableText();
+			    	isClient = true;
+                    
 			    	Client client;
 			    	client = new Client(remoteHost, port, whiteboard.getCanvas());
 			    	client.start();

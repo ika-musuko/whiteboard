@@ -88,5 +88,4 @@ public class LineInfo extends Info {
         }
         return false;
     }
-    
 }
