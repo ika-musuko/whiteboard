@@ -345,9 +345,6 @@ public class ControlPanel extends JPanel {
 		
 		startClientButton.addActionListener(new ActionListener(){
 			
-			JTextField textEditor1 = textEditor;
-			JComboBox<String> fontBox1 = fontBox;
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
