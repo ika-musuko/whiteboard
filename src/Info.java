@@ -101,7 +101,7 @@ class Info {
         this.setY(y);
     }
         
-    public void resize(Point anchor, int x, int y){
+    public void resize(Point anchor, int x, int y) {
     	// above anchor
         if(y < anchor.y) {
             // left of anchor

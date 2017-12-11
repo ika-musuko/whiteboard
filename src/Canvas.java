@@ -14,7 +14,7 @@ public class Canvas extends JPanel implements CanvasListener{
 
 	private static final long serialVersionUID = 1L;
     
-    //dummy shape to point to when there is no selection
+    // dummy shape to point to when there is no selection
 	private static final DShape NOSELECTION = new DShape() {
         @Override
         protected void draw(Graphics g){
@@ -33,7 +33,7 @@ public class Canvas extends JPanel implements CanvasListener{
     
     private boolean resizing;
     private Point anchorKnob;
-    public static final Point NOANCHOR = new Point(-10000, -10000);
+    public static final Point NOANCHOR = new Point(-10000, -10000); // dummy anchor point
     
     private List<CanvasListener> canvasListeners;
 
@@ -51,6 +51,7 @@ public class Canvas extends JPanel implements CanvasListener{
 		// tries to select a DShape or returns NOSELECTION if there is no selection
         private int xOffset;
         private int yOffset;
+        private boolean startIsShape;
         
         private DShape trySelect(MouseEvent e){
             for(DShape ds : shapeList){
@@ -70,6 +71,8 @@ public class Canvas extends JPanel implements CanvasListener{
 
         @Override
         public void mouseDragged(MouseEvent e) { 
+            if (!this.startIsShape) return;
+        
             // if something is already being dragged...
             if (dragged != Canvas.NOSELECTION) {
                 if (selected == dragged && anchorKnob != Canvas.NOANCHOR)
@@ -103,8 +106,11 @@ public class Canvas extends JPanel implements CanvasListener{
             if (selected != Canvas.NOSELECTION) {
                 this.xOffset = e.getX() - selected.getInfo().getX();
                 this.yOffset = e.getY() - selected.getInfo().getY();
+                this.startIsShape = true;
                 refresh();
+                return;
             }
+            this.startIsShape = false;
 		}
 
 		@Override

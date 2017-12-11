@@ -3,8 +3,7 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class DText extends DShape{	
-	protected static final int KNOB_SIZE = 9;
-    
+    protected static final int KNOB_SIZE = 9;
     public DText(){
 		this.setInfo(new TextInfo());
 	}

@@ -40,6 +40,7 @@ public class LineInfo extends Info {
     
     @Override
     protected Rectangle getBounds(){
+        
         // case 1-2
         if(this.x < this.w){
             return this.y < this.h ? this.downwardSlope(this.x, this.y, this.w, this.h)    // case 1
@@ -61,11 +62,16 @@ public class LineInfo extends Info {
     
     @Override
     public List<Point> getKnobs() {
-        return RectangleUtils.rectPoints(this.getBounds()); 
+        List<Point> knobbies = new ArrayList<>();
+        knobbies.add(new Point(this.x, this.y));
+        knobbies.add(new Point(this.w, this.h));
+        return knobbies;
     }
+    
+    
 
     @Override
-    public void move(int x, int y){
+    public void move(int x, int y) {
         Rectangle newBounds = this.getBounds();
         newBounds.setLocation(x, y);
         List<Point> points = RectangleUtils.rectPoints(newBounds);
@@ -94,5 +100,15 @@ public class LineInfo extends Info {
         this.setY(points.get(p1).y);
         this.setWidth(points.get(p2).x);
         this.setHeight(points.get(p2).y);
+    }
+    
+    @Override
+    public void resize(Point anchor, int x, int y) {
+        if (anchor.x == this.x && anchor.y == this.y){
+            this.setWidth(x);
+            this.setHeight(y);
+            return;
+        }
+        super.move(x, y);
     }
 }

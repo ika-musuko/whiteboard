@@ -39,7 +39,7 @@ public abstract class DShape implements InfoListener{
     // get the opposite end of the bounds rectangle
     public Point getAnchor(int x, int y){
     	for(Point p : this.info.getKnobs()){
-    		Rectangle knobRegion= new Rectangle(p.x-KNOB_SIZE/2, p.y-KNOB_SIZE/2, KNOB_SIZE, KNOB_SIZE);
+    		Rectangle knobRegion = new Rectangle(p.x-KNOB_SIZE/2, p.y-KNOB_SIZE/2, KNOB_SIZE, KNOB_SIZE);
     		if(knobRegion.contains(x, y))
     			return RectangleUtils.oppositeCorner(this.info.getBounds(), x, y);
     	}
