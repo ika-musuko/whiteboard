@@ -57,7 +57,7 @@ public class LineInfo extends Info {
         this.setX2(this.x+x2dif);
         this.setY2(this.y+y2dif);
     } 
-    
+        
     public void moveEndpoint(int x, int y) {
         this.setX2(x);
         this.setY2(y);        
@@ -65,10 +65,13 @@ public class LineInfo extends Info {
     
     @Override
     public void resize(Point anchor, int x, int y) {
-        if (anchor.x == this.x)
-            super.move(x, y);
-        else
+        Point p1 = new Point(this.x, this.y);
+        Point p2 = new Point(this.x2, this.y2);
+        if (RectangleUtils.closerPoint(anchor, p1, p2) == p1) {
             this.moveEndpoint(x, y);
+            return;
+        }
+        super.move(x, y);
     }
     
     @Override
@@ -81,8 +84,11 @@ public class LineInfo extends Info {
     
     @Override
     public Rectangle getBounds() {
+        int knobOffset = DShape.KNOB_SIZE/2;
         Rectangle bounds = new Rectangle(new Point(this.x, this.y));
         bounds.add(new Point(this.x2, this.y2));
+        //bounds.translate(-knobOffset, -knobOffset);
+        bounds.grow(knobOffset, knobOffset);
         return bounds;
     }
     

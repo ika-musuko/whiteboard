@@ -45,7 +45,8 @@ class Info {
     }
 
     protected Rectangle getBounds() {
-        return (new Rectangle(this.x, this.y, this.w, this.h));
+        int knobOffset = DShape.KNOB_SIZE/2;
+        return (new Rectangle(this.x+knobOffset, this.y-knobOffset, this.w+knobOffset, this.h+knobOffset));
     }
 
     public boolean contains(int x, int y){
