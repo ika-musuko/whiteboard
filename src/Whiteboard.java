@@ -87,6 +87,7 @@ public class Whiteboard extends JFrame {
                 DShape shape = this.canvas.getShapeList().get(i);
     			String text = "";
     			
+    			//add name of shape to the string
     			if(shape instanceof DRectangle)
     			{
     				text += "Rectangle ";
@@ -104,10 +105,13 @@ public class Whiteboard extends JFrame {
     				text += "Text ";
     			}
     			
+    			//add RGB in hexadecimal to string
     			text += ("#" + Integer.toHexString(shape.getInfo().getColor().getRGB()).substring(2).toUpperCase() + " ");
     		
+    			//add all basic shape info to string: x, y, width, height
                 text += shape.getInfo().getX() + " " + shape.getInfo().getY() + " " + shape.getInfo().getWidth() + " " + shape.getInfo().getHeight();
     			
+                //DText objects have 2 extra fields: text content and font type
     			if(shape instanceof DText)
     			{
     				text += (" " + '"' + ((TextInfo) shape.getInfo()).getText() + '"' + " ");
@@ -155,6 +159,7 @@ public class Whiteboard extends JFrame {
     			{
     				String text = "";
     				char c = ' ';
+    				//keep reading until last word of text detected
     				while(c != '"')
     				{
     					text += scanner.next();
@@ -162,17 +167,20 @@ public class Whiteboard extends JFrame {
     					c = text.charAt(text.length() - 2);
     				}
     				
-    				text = text.substring(1, text.length() - 2);  // get rid of beginning and end quotes
+    				//remove quotes
+    				text = text.substring(1, text.length() - 2);  
     				
     				String fontName = "";
     				c = ' ';
+    				//keep reading until last word of font name detected
     				while(c != '"')
     				{
     					fontName += scanner.next();
     					fontName += " ";
     					c = fontName.charAt(fontName.length() - 2);
     				}
-    				fontName = fontName.substring(1, fontName.length() - 2);  // get rid of beginning and end quotes
+    				//remove quotes
+    				fontName = fontName.substring(1, fontName.length() - 2);  
     				
     				TextInfo infoT = new TextInfo(text, fontName, color, x, y, width, height);
     				shape = new DText(infoT);

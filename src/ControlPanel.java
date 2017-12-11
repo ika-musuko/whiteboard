@@ -339,7 +339,7 @@ public class ControlPanel extends JPanel {
 			    		server = new Server(whiteboard.getCanvas());
 			    	}
 			    	
-			    	//disable server buttons
+			    	//disable networking buttons before starting server
 					startServerButton.setEnabled(false);
 					startClientButton.setEnabled(false);
 			    
@@ -378,13 +378,11 @@ public class ControlPanel extends JPanel {
 					}
 			    	
 			    	
-			    	// disable buttons in control panel
-			    	
+			    	// disable buttons in control panel before connecting to server
 			    	addRect.setEnabled(false);
 					addOval.setEnabled(false);
 					addLine.setEnabled(false);
 					addText.setEnabled(false);
-					//disable class variables
 					saveButton.setEnabled(false);
 					loadButton.setEnabled(false);
 					resetButton.setEnabled(false);
@@ -393,6 +391,7 @@ public class ControlPanel extends JPanel {
 					startClientButton.setEnabled(false);
                     disableShapeEditing();
                     disableText();
+                    
 			    	isClient = true;
                     
                     whiteboard.getCanvas().disable();
