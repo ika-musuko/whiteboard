@@ -1,6 +1,3 @@
-CS 151 HW 7 - Whiteboard.java
-
-Members:
-011878763 - Sherwyn Sen
-012358502 - Andrew Yuan
-009548136 - Brandon Archbold
+user: 009548136 (Archbold, Brandon)
+user: 012358502 (Yuan, Andrew)
+user: 011878763 (Sen, Sherwyn)
