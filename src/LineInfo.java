@@ -6,84 +6,93 @@ import java.awt.Color;
 import java.awt.Point;
 
 public class LineInfo extends Info {
+    private int x2;
+    private int y2;
     
-    public LineInfo(){
-        this(30, 30, 15, 15);
-    }
-
-    public LineInfo(int x1, int y1, int x2, int y2){
-        this(Color.GRAY, x1, y1, x2, y2);
-    }
-
-    public LineInfo(Color color, int x1, int y1, int x2, int y2){
-        super(color, x1, y1, x2, y2);
-    }
-
-    // for cases 1 and 3
-    private Rectangle downwardSlope(int x1, int y1, int x2, int y2){
-        return new Rectangle(x1, y1, x2-x1, y2-y1);
+    public LineInfo() {
+        this(Color.GRAY, 10, 10, 30, 30);
     }
     
-    // for cases 2 and 4
-    private Rectangle upwardSlope(int x1, int y1, int x2, int y2){
-        return new Rectangle(x1, y2, x2-x1, y1-y2);
+    public LineInfo(Color color, int x1, int y1, int x2, int y2) {
+        this.color = color;
+        this.x = x1;
+        this.y = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+    }
+    
+    public LineInfo(LineInfo i) {
+        this.x         = i.x;
+        this.y         = i.y;
+        this.x2        = i.x2;
+        this.y2        = i.y2;
+        this.color     = new Color(i.color.getRGB());
+        this.listeners = new ArrayList<>(i.listeners);  
+    }
+    
+    public int getX2() {
+        return this.x2;
+    }
+
+    public int getY2() {
+        return this.y2;
+    }    
+
+    public void setX2(int x) {
+        this.x2 = x;
+        this.notifyListeners();
+    }
+
+    public void setY2(int y) {
+        this.y2 = y;
+        this.notifyListeners();
+    }
+       
+    @Override
+    public void move(int x, int y){
+        int x2dif = this.x2 - this.x;
+        int y2dif = this.y2 - this.y;
+        this.setX(x);
+        this.setY(y);
+        this.setX2(this.x+x2dif);
+        this.setY2(this.y+y2dif);
+    } 
+        
+    public void moveEndpoint(int x, int y) {
+        this.setX2(x);
+        this.setY2(y);        
     }
     
     @Override
-    protected Rectangle getBounds(){
-        // case 1-2
-        if(this.x < this.w){
-            return this.y < this.h ? this.downwardSlope(this.x, this.y, this.w, this.h)    // case 1
-                                   : this.upwardSlope(this.x, this.y, this.w, this.h);// case 2
+    public void resize(Point anchor, int x, int y) {
+        Point p1 = new Point(this.x, this.y);
+        Point p2 = new Point(this.x2, this.y2);
+        if (RectangleUtils.closerPoint(anchor, p1, p2) == p1) {
+            this.moveEndpoint(x, y);
+            return;
         }
-        // case 3-4
-        return this.y > this.h ? this.downwardSlope(this.w, this.h, this.x, this.y) // case 3
-                               : this.upwardSlope(this.w, this.h, this.x, this.y); // case 4
-
-    }
-
-    @Override
-    public boolean contains(int x, int y){
-        //System.out.println("LINETHIS: "+this);
-    	Rectangle b = this.getBounds();
-        //System.out.println(b);
-        return b.contains(x, y);
+        super.move(x, y);
     }
     
     @Override
     public List<Point> getKnobs() {
-        return RectangleUtils.rectPoints(this.getBounds()); 
+        List<Point> knobbies = new ArrayList<>();
+        knobbies.add(new Point(this.x, this.y));
+        knobbies.add(new Point(this.x2, this.y2));
+        return knobbies;
     }
-
+    
     @Override
-    public void move(int x, int y){
-        Rectangle newBounds = this.getBounds();
-        newBounds.setLocation(x-newBounds.width/2, y-newBounds.height/2);
-        List<Point> points = RectangleUtils.rectPoints(newBounds);
-        int p1 = 0, p2 = 3;
-        if (this.x < this.w){
-            if(this.y < this.h){
-                p1 = 0;
-                p2 = 3;
-            }
-            else {
-                p1 = 2;
-                p2 = 1;
-            }
-        }
-        else{
-            if(this.y > this.h){
-                p1 = 3;
-                p2 = 0;
-            }
-            else {
-                p1 = 1;
-                p2 = 2;
-            }
-        }
-        this.setX(points.get(p1).x);
-        this.setY(points.get(p1).y);
-        this.setWidth(points.get(p2).x);
-        this.setHeight(points.get(p2).y);
+    public Rectangle getBounds() {
+        int knobOffset = DShape.KNOB_SIZE/2;
+        Rectangle bounds = RectangleUtils.rectFromTwoPoints(new Point(this.x, this.y), new Point(this.x2, this.y2));
+        bounds.grow(knobOffset, knobOffset);
+        return bounds;
     }
+    
+    @Override
+    public boolean contains(int x, int y) {
+        return RectangleUtils.rectFromTwoPoints(new Point(this.x, this.y), new Point(this.x2, this.y2)).contains(x, y);
+    }
+    
 }

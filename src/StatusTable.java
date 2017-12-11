@@ -41,10 +41,20 @@ public class StatusTable extends JPanel implements CanvasListener {
         for (int i = 0; i < shapeList.size(); ++i) {
             DShape ds = shapeList.get(i);
             this.table.getModel().setValueAt(ds.getClass().getSimpleName(), i, 0);
-            this.table.getModel().setValueAt(ds.getInfo().getX(), i, 1);
-            this.table.getModel().setValueAt(ds.getInfo().getY(), i, 2);
-            this.table.getModel().setValueAt(ds.getInfo().getWidth(), i, 3);
-            this.table.getModel().setValueAt(ds.getInfo().getHeight(), i, 4);
+
+            if (ds.getInfo() instanceof LineInfo) {
+                this.table.getModel().setValueAt("x1: "+((LineInfo)ds.getInfo()).getX(), i, 1);
+                this.table.getModel().setValueAt("y1: "+((LineInfo)ds.getInfo()).getY(), i, 2);
+                this.table.getModel().setValueAt("x2: "+((LineInfo)ds.getInfo()).getX2(), i, 3);
+                this.table.getModel().setValueAt("y2: "+((LineInfo)ds.getInfo()).getY2(), i, 4);
+            }
+            
+            else {
+                this.table.getModel().setValueAt(ds.getInfo().getX(), i, 1);
+                this.table.getModel().setValueAt(ds.getInfo().getY(), i, 2);
+                this.table.getModel().setValueAt(ds.getInfo().getWidth(), i, 3);
+                this.table.getModel().setValueAt(ds.getInfo().getHeight(), i, 4);
+            }
             Color color = ds.getInfo().getColor();
             this.table.getModel().setValueAt("R: "+color.getRed()+", G: "+color.getGreen()+", B: "+color.getBlue(), i, 5);
         }

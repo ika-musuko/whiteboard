@@ -13,6 +13,7 @@ class Info {
     protected Color color;
     protected List<InfoListener> listeners;
 
+    
     public Info() {
         this(10, 10, 100, 100);
     }
@@ -22,12 +23,21 @@ class Info {
     }
 
     public Info(Color color, int x, int y, int w, int h) {
-        this.x = x;
-        this.y = y;
-        this.w = w;
-        this.h = h;
-        this.color = color;
+        this.x         = x;
+        this.y         = y;
+        this.w         = w;
+        this.h         = h;
+        this.color     = color;
         this.listeners = new ArrayList<>();
+    }
+    
+    public Info(Info i) {
+        this.x         = i.x;
+        this.y         = i.y;
+        this.w         = i.w;
+        this.h         = i.h;
+        this.color     = new Color(i.color.getRGB());
+        this.listeners = new ArrayList<>(i.listeners);   
     }
 
     public String toString() {
@@ -35,12 +45,28 @@ class Info {
     }
 
     protected Rectangle getBounds() {
-        return (new Rectangle(this.x, this.y, this.w, this.h));
+        int knobOffset = DShape.KNOB_SIZE/2;
+        return (new Rectangle(this.x+knobOffset, this.y-knobOffset, this.w+knobOffset, this.h+knobOffset));
     }
-
-    public boolean contains(int x, int y){
-    	return this.getBounds().contains(x, y);
+    
+    public boolean contains(int x, int y) {
+        return ((new Rectangle(this.x, this.y, this.w, this.h)).contains(x, y));
     }
+    
+    public boolean containsWithKnobs(int x, int y){
+        // shape bounds
+    	if (this.contains(x, y))
+            return true;
+        
+        // knob bounds
+        for(Point p : this.getKnobs()){
+    		Rectangle knobRegion = new Rectangle(p.x-DShape.KNOB_SIZE/2, p.y-DShape.KNOB_SIZE/2, DShape.KNOB_SIZE, DShape.KNOB_SIZE);
+            if(knobRegion.contains(x, y))
+                return true; 
+        }
+        return false;
+    }
+    
 
     public Color getColor() {
         return this.color;
@@ -87,12 +113,44 @@ class Info {
     }
 
     public void move(int x, int y){
-        this.setX(x-this.w/2);
-        this.setY(y-this.h/2);
+        this.setX(x);
+        this.setY(y);
     }
-    
-    public void resize(Point p, int x, int y){
-    	
+        
+    public void resize(Point anchor, int x, int y) {
+    	// above anchor
+        if(y < anchor.y) {
+            // left of anchor
+    		if(x < anchor.x) {
+                this.setX(x);
+                this.setWidth(anchor.x-x);
+                
+                this.setY(y);
+                this.setHeight(anchor.y-y);  
+            }
+            // right of anchor
+            else {
+                this.setWidth(x-anchor.x);
+                
+                this.setY(y);
+                this.setHeight(anchor.y-y);                
+            }
+            
+        // below anchor
+        } else {
+            // left of anchor
+            if (x < anchor.x) {
+                this.setX(x);
+                this.setWidth(anchor.x-x);
+                
+                this.setHeight(y-anchor.y);
+            }
+            // right of anchor
+            else  {
+                this.setWidth(x-anchor.x);
+                this.setHeight(y-anchor.y);
+            }
+        }
     }
 
     public void setWidth(int w) {
