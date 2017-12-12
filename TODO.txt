@@ -7,7 +7,7 @@ Listeners                 done
 SetColor                  done
 Moving                    done 
 Knob Drawing              done
-Knob Resizing             
+Knob Resizing             done
 Delete Shape              done
 Move Front/Back           done
 DLine                     done
@@ -17,4 +17,4 @@ Status Table              done
 File Saving               done
 File Opening              done
 Save as PNG               done
-Networking
+Networking                done
