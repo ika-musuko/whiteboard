@@ -240,7 +240,7 @@ public class Canvas extends JPanel implements CanvasListener{
     	shapeList = new ArrayList<DShape>();
         this.refresh();
     }
-    
+   
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
